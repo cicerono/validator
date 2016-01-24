@@ -1,2 +1,2 @@
 module.exports = require('./validator')
-module.exports.extend = require('./extends')
+module.exports.extend = require('./extend')
