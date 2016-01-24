@@ -1,0 +1,6 @@
+tasks:
+ install:
+  - npm install
+ tests:
+  - npm test
+  - npm run lint
