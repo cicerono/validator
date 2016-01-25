@@ -6,6 +6,7 @@
   "scripts": {
     "prepublish": "babel src --out-dir lib",
     "test": "ava || true",
+    "lint": "eslint . || true",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
