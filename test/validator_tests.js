@@ -14,6 +14,13 @@ test('throw if no rules is given to the validator', t => {
   t.throws(() => new Validator(), Error, 'Missing validator configuration')
 })
 
+test('getErrors should return validation errors', t => {
+  t.plan(1)
+  const validator = new Validator({})
+  validator.errors = { field: { rule: 'superRule' } }
+  t.same(validator.getErrors(), { field: { rule: 'superRule' } })
+})
+
 test('validateField should return null if field is not in config', t => {
   t.plan(1)
   const validator = new Validator({})
@@ -33,18 +40,18 @@ test('validate should filter out valid values', t => {
   t.same(validator.validate(['answer'], { answer: 42 }), {})
 })
 
-test('validate should filter out ignored fields', t => {
-  const validator = new Validator({})
-  sinon.stub(validator, 'validateField').returns({ field: 'answer', rule: 'required' }, ['answer'])
-  t.same(validator.validate(['answer'], { answer: null }), {
-    answer: { field: 'answer', rule: 'required' },
-  })
-})
-
 test.skip('validateField should call given rule', t => {
   t.plan(2)
   sinon.spy(rules, 'required')
   const validator = new Validator({ answer: { required: true } })
   t.notOk(validator.validateField('answer', null))
   t.ok(rules.required.called)
+})
+
+test('validateField should update errors', t => {
+  const validator = new Validator({ a: { required: true }, b: { required: true } })
+  validator.validateField('a', null)
+  t.same(validator.errors, { a: { field: 'a', rule: 'required', value: null } })
+  validator.validateField('a', 'c')
+  t.same(validator.errors, {})
 })
