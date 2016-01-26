@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "prepublish": "babel src --out-dir lib",
-    "test": "ava || true",
+    "test": "nyc --reporter cobertura --reporter text ava || true",
     "lint": "eslint . || true",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
   },
@@ -46,6 +46,7 @@
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^4.0.0",
     "eslint-plugin-ava": "0.0.1",
+    "nyc": "^5.5.0",
     "sinon": "^1.17.2"
   },
   "dependencies": {

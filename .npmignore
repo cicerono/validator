@@ -31,3 +31,4 @@ test/
 src/
 .babelrc
 .frigg.yml
+.nyc_output/
