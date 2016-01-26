@@ -1,7 +1,11 @@
 export function required(field, value, options = true) {
-  if (options === false) { return true }
+  if (options === false) { return null }
+  let result = false
   if (typeof value === 'string') {
-    return !!value.trim()
+    result = !!value.trim()
+  } else {
+    result = !!value
   }
-  return !!value
+
+  return result ? null : 'required'
 }

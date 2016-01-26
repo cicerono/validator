@@ -20,7 +20,8 @@ export default class Validator {
     let result = null
     if (this.config.hasOwnProperty(field)) {
       for (const rule in this.config[field]) {
-        if (!this.validateRule(rule, field, value, this.config[field][rule])) {
+        result = this.validateRule(rule, field, value, this.config[field][rule])
+        if (result) {
           result = { field, rule, value }
           this.errors[field] = result
           break

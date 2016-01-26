@@ -1,24 +1,31 @@
 import get from 'lodash.get'
 import { isInt, isFloat } from 'validator'
 
-function evaluateOptions(options) {
-  const validatorOptions = {}
-  if (get(options, 'min')) validatorOptions.min = get(options, 'min')
-  if (get(options, 'max')) validatorOptions.max = get(options, 'max')
-  return validatorOptions
-}
-
 export function numeric(field, value, options) {
-  if (!value) {
-    return true
-  }
-
-  const validatorOptions = evaluateOptions(options)
-
-  if (!!get(options, 'integerOnly')) {
-    return isInt(value, validatorOptions)
+  if (!value && parseInt(value, 10) !== 0) {
+    return null
   }
 
   const delimiter = get(options, 'delimiter')
-  return isFloat(delimiter ? value.replace(delimiter, '.') : value, validatorOptions)
+  const number = delimiter ? value.replace(delimiter, '.') : value
+
+  if (!isFloat(number)) {
+    return 'numeric'
+  }
+
+  if (!!get(options, 'integerOnly') && isInt(number)) {
+    return 'numeric/integerOnly'
+  }
+
+  const min = get(options, 'min')
+  if (min && !isFloat(number, { min })) {
+    return 'numeric/min'
+  }
+
+  const max = get(options, 'max')
+  if (max && !isFloat(number, { max })) {
+    return 'numeric/max'
+  }
+
+  return null
 }
