@@ -5,8 +5,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "prepublish": "babel src --out-dir lib",
-    "test": "nyc --reporter cobertura --reporter text ava || true",
-    "lint": "eslint . || true",
+    "test": "nyc --reporter cobertura --reporter text ava",
+    "lint": "eslint .",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
