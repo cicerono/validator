@@ -47,7 +47,7 @@
     "eslint-config-airbnb": "^4.0.0",
     "eslint-plugin-ava": "0.0.1",
     "nyc": "^5.5.0",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.3"
   },
   "dependencies": {
     "lodash.assign": "^4.0.0",
