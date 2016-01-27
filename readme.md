@@ -25,7 +25,7 @@ validator.validate(['field'], {})
 var validatorCreator = require("@relekang/validator").extend;
 
 var Validator = validatorCreator({
-  mod: (field, value, options) => value % 2 === 0 ? null : 'mod'
+  mod: (field, value, options) => value % options.constant === 0 ? null : 'mod'
 });
 
 Validator({ f: { mod: { constant: 2 } }).validate(['f'], { f: 3 })
