@@ -13,11 +13,19 @@ test('numeric should return null for double values', t => {
   t.is(numeric('field', '4.2'), null)
 })
 
-test('numeric should return null for integer values when integerOnly is null', t => {
-  t.is(numeric('field', 0, { integerOnly: null }), null)
-  t.is(numeric('field', 42, { integerOnly: null }), null)
-  t.is(numeric('field', '42', { integerOnly: null }), null)
+test('numeric should return null for integer values when integerOnly is true', t => {
+  t.is(numeric('field', 0, { integerOnly: true }), null)
+  t.is(numeric('field', 42, { integerOnly: true }), null)
+  t.is(numeric('field', '42', { integerOnly: true }), null)
 })
+
+test(
+  'numeric should return "numeric/integerOnly" for non-integer values when integerOnly is true',
+  t => {
+    t.is(numeric('field', 42.2, { integerOnly: true }), 'numeric/integerOnly')
+    t.is(numeric('field', '42.3', { integerOnly: true }), 'numeric/integerOnly')
+  }
+)
 
 test('numeric should return null for double values with custom delimiter', t => {
   t.is(numeric('field', '4,2', { delimiter: ',' }), null)

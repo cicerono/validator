@@ -13,7 +13,7 @@ export function numeric(field, value, options) {
     return 'numeric'
   }
 
-  if (!!get(options, 'integerOnly') && isInt(number)) {
+  if (!!get(options, 'integerOnly') && !isInt(number)) {
     return 'numeric/integerOnly'
   }
 
