@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "prepublish": "babel src --out-dir lib",
-    "test": "nyc --reporter cobertura --reporter text ava",
+    "test": "nyc -a --require babel-core/register --reporter cobertura --reporter text ava",
     "lint": "eslint .",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
   },
@@ -29,7 +29,7 @@
     ]
   },
   "nyc": {
-    "exclude": ["**/__tests__/*.js"]
+    "exclude": ["**/__tests__", "lib"]
   },
   "eslintConfig": {
     "extends": [
