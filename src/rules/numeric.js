@@ -1,4 +1,4 @@
-import get from 'lodash.get'
+import { get, isNil } from 'lodash'
 import { isInt, isFloat } from 'validator'
 
 export function numeric(field, value, options) {
@@ -13,17 +13,17 @@ export function numeric(field, value, options) {
     return 'numeric'
   }
 
-  if (!!get(options, 'integerOnly') && !isInt(number)) {
+  if (get(options, 'integerOnly') && !isInt(number)) {
     return 'numeric/integerOnly'
   }
 
   const min = get(options, 'min')
-  if (min && !isFloat(number, { min })) {
+  if (!isNil(min) && !isFloat(number, { min })) {
     return 'numeric/min'
   }
 
   const max = get(options, 'max')
-  if (max && !isFloat(number, { max })) {
+  if (!isNil(max) && !isFloat(number, { max })) {
     return 'numeric/max'
   }
 

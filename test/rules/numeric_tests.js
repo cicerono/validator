@@ -52,6 +52,7 @@ test('numeric should return "numeric" for spaces', t => {
 })
 
 test('numeric should validate max value', t => {
+  t.is(numeric('field', 0, { max: 0 }), null)
   t.is(numeric('field', 41, { max: 42 }), null)
   t.is(numeric('field', 42, { max: 42 }), null)
   t.is(numeric('field', 41.9, { max: 42 }), null)
@@ -60,6 +61,7 @@ test('numeric should validate max value', t => {
 })
 
 test('numeric should validate min value', t => {
+  t.is(numeric('field', 0, { min: 0 }), null)
   t.is(numeric('field', 43, { min: 42 }), null)
   t.is(numeric('field', 42, { min: 42 }), null)
   t.is(numeric('field', 42.1, { min: 42 }), null)
