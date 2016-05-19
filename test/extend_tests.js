@@ -7,14 +7,14 @@ const newRule = () => {}
 test('Validator.extend should extend rules suite', t => {
   t.plan(2)
   const Validator = extend({ newRule })
-  t.ok(Validator.rules.newRule)
+  t.truthy(Validator.rules.newRule)
   t.is(Validator.rules.newRule, newRule)
 })
 
 test('Validator.extend should include default rules', t => {
   t.plan(1)
   const Validator = extend({ newRule })
-  t.ok(Validator.rules.required)
+  t.truthy(Validator.rules.required)
 })
 
 test('Validator.extend should overwrite if the rule has same name', t => {

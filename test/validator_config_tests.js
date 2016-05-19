@@ -18,9 +18,9 @@ test('Validator should validate required rules', t => {
     notRequired: '',
   })
 
-  t.same(result, {
+  t.deepEqual(result, {
     noValue: { field: 'noValue', rule: 'required', value: null },
     notInObject: { field: 'notInObject', rule: 'required', value: undefined },
   })
-  t.same(result, validator.getErrors())
+  t.deepEqual(result, validator.getErrors())
 })
