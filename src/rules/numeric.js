@@ -9,21 +9,21 @@ export function numeric(field, value, options) {
   const delimiter = get(options, 'delimiter');
   const number = delimiter ? value.replace(delimiter, '.') : value;
 
-  if (!isFloat(number)) {
+  if (!isFloat(number.toString())) {
     return 'numeric';
   }
 
-  if (get(options, 'integerOnly') && !isInt(number)) {
+  if (get(options, 'integerOnly') && !isInt(number.toString())) {
     return 'numeric/integerOnly';
   }
 
   const min = get(options, 'min');
-  if (!isNil(min) && !isFloat(number, { min })) {
+  if (!isNil(min) && !isFloat(number.toString(), { min })) {
     return 'numeric/min';
   }
 
   const max = get(options, 'max');
-  if (!isNil(max) && !isFloat(number, { max })) {
+  if (!isNil(max) && !isFloat(number.toString(), { max })) {
     return 'numeric/max';
   }
 
