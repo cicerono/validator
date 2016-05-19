@@ -1,4 +1,4 @@
-/* eslint-disable gloabal-require */
+/* eslint-disable global-require */
 import test from 'ava';
 
 import Validator from '../src/validator';
