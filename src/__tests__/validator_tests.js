@@ -1,8 +1,8 @@
 import test from 'ava';
 import sinon from 'sinon';
 
-import * as rules from '../src/rules';
-import Validator from '../src/validator';
+import * as rules from '../rules';
+import Validator from '../validator';
 
 test('creating new Validator', t => {
   t.plan(1);

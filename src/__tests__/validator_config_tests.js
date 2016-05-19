@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import Validator from '../src/validator';
+import Validator from '../validator';
 
 test('Validator should validate required rules', t => {
   t.plan(2);

@@ -1,7 +1,7 @@
 import 'babel-core/register';
 import test from 'ava';
 
-import extend from '../src/extend';
+import extend from '../extend';
 const newRule = () => {};
 
 test('Validator.extend should extend rules suite', t => {

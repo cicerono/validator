@@ -21,9 +21,15 @@
   "homepage": "https://github.com/relekang/validator#readme",
   "ava": {
     "verbose": true,
+    "files": [
+      "**/__tests__/*.js"
+    ],
     "require": [
       "babel-core/register"
     ]
+  },
+  "nyc": {
+    "exclude": ["**/__tests__/*.js"]
   },
   "eslintConfig": {
     "extends": [
