@@ -1,6 +1,6 @@
 {
   "name": "@relekang/validator",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
@@ -26,7 +26,10 @@
     ]
   },
   "eslintConfig": {
-    "extends": ["airbnb-base", "plugin:ava/recommended"],
+    "extends": [
+      "airbnb-base",
+      "plugin:ava/recommended"
+    ],
     "plugins": [
       "ava"
     ]
