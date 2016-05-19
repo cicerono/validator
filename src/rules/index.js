@@ -1,2 +1,2 @@
-export * from './required'
-export * from './numeric'
+export * from './required';
+export * from './numeric';

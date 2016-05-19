@@ -1,45 +1,45 @@
-import * as rules from './rules'
+import * as rules from './rules';
 
 export default class Validator {
   constructor(config) {
-    if (!config) { throw new Error('Missing validator configuration') }
-    this.config = config
-    this.errors = {}
+    if (!config) { throw new Error('Missing validator configuration'); }
+    this.config = config;
+    this.errors = {};
   }
 
   getErrors() {
-    return this.errors
+    return this.errors;
   }
 
   validate(fields, data) {
-    fields.map(field => this.validateField(field, data[field]))
-    return this.errors
+    fields.map(field => this.validateField(field, data[field]));
+    return this.errors;
   }
 
   validateField(field, value) {
-    let result = null
+    let result = null;
     if (this.config.hasOwnProperty(field)) {
       for (const rule in this.config[field]) {
         if ({}.hasOwnProperty.call(this.config, rule)) {
-          result = this.validateRule(rule, field, value, this.config[field][rule])
+          result = this.validateRule(rule, field, value, this.config[field][rule]);
           if (result) {
-            result = { field, rule, value }
-            this.errors[field] = result
-            break
+            result = { field, rule, value };
+            this.errors[field] = result;
+            break;
           } else {
             if (this.errors.hasOwnProperty(field)) {
-              delete this.errors[field]
+              delete this.errors[field];
             }
           }
         }
       }
     }
-    return result
+    return result;
   }
 
   validateRule(ruleName, field, value, options) {
-    return rules[ruleName](field, value, options)
+    return rules[ruleName](field, value, options);
   }
 }
 
-Validator.rules = rules
+Validator.rules = rules;

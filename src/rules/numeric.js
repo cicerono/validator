@@ -1,31 +1,31 @@
-import { get, isNil } from 'lodash'
-import { isInt, isFloat } from 'validator'
+import { get, isNil } from 'lodash';
+import { isInt, isFloat } from 'validator';
 
 export function numeric(field, value, options) {
   if (!value && parseInt(value, 10) !== 0) {
-    return null
+    return null;
   }
 
-  const delimiter = get(options, 'delimiter')
-  const number = delimiter ? value.replace(delimiter, '.') : value
+  const delimiter = get(options, 'delimiter');
+  const number = delimiter ? value.replace(delimiter, '.') : value;
 
   if (!isFloat(number)) {
-    return 'numeric'
+    return 'numeric';
   }
 
   if (get(options, 'integerOnly') && !isInt(number)) {
-    return 'numeric/integerOnly'
+    return 'numeric/integerOnly';
   }
 
-  const min = get(options, 'min')
+  const min = get(options, 'min');
   if (!isNil(min) && !isFloat(number, { min })) {
-    return 'numeric/min'
+    return 'numeric/min';
   }
 
-  const max = get(options, 'max')
+  const max = get(options, 'max');
   if (!isNil(max) && !isFloat(number, { max })) {
-    return 'numeric/max'
+    return 'numeric/max';
   }
 
-  return null
+  return null;
 }
