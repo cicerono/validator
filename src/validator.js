@@ -28,7 +28,7 @@ export default class Validator {
         result = this.validateRule(rule, field, value, this.config[field][rule]);
 
         if (result) {
-          result = { field, rule, value };
+          result = { field, rule: result, value };
           this.errors = assign({}, this.errors, { [field]: result });
           break;
         } else {

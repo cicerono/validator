@@ -55,3 +55,12 @@ test('validateField should update errors', t => {
   validator.validateField('a', 'c');
   t.deepEqual(validator.errors, {});
 });
+
+test('validateField should return object with offending rule name', t => {
+  const validator = new Validator({ a: { numeric: { integerOnly: true } } });
+
+  t.deepEqual(
+    validator.validateField('a', '2.0'),
+    { field: 'a', rule: 'numeric/integerOnly', value: '2.0' }
+  );
+});
