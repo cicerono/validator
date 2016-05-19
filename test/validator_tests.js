@@ -40,7 +40,7 @@ test('validate should filter out valid values', t => {
   t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
 });
 
-test.skip('validateField should call given rule', t => {
+test.skip('validateField should call given rule', t => { // eslint-disable-line
   t.plan(2);
   sinon.spy(rules, 'required');
   const validator = new Validator({ answer: { required: true } });

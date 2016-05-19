@@ -1,3 +1,5 @@
+import { keys } from 'lodash';
+
 import * as rules from './rules';
 
 export default class Validator {
@@ -19,17 +21,17 @@ export default class Validator {
   validateField(field, value) {
     let result = null;
     if (this.config.hasOwnProperty(field)) {
-      for (const rule in this.config[field]) {
-        if ({}.hasOwnProperty.call(this.config, rule)) {
-          result = this.validateRule(rule, field, value, this.config[field][rule]);
-          if (result) {
-            result = { field, rule, value };
-            this.errors[field] = result;
-            break;
-          } else {
-            if (this.errors.hasOwnProperty(field)) {
-              delete this.errors[field];
-            }
+      const fieldRules = keys(this.config[field]);
+      for (let i = 0; i < fieldRules.length; i++) {
+        const rule = fieldRules[i];
+        result = this.validateRule(rule, field, value, this.config[field][rule]);
+        if (result) {
+          result = { field, rule, value };
+          this.errors[field] = result;
+          break;
+        } else {
+          if (this.errors.hasOwnProperty(field)) {
+            delete this.errors[field];
           }
         }
       }
