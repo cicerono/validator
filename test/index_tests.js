@@ -1,3 +1,4 @@
+/* eslint-disable gloabal-require */
 import test from 'ava'
 
 import Validator from '../src/validator'
