@@ -1,4 +1,5 @@
-import { keys } from 'lodash';
+import freeze from 'deep-freeze';
+import { assign, keys, omit } from 'lodash';
 
 import * as rules from './rules';
 
@@ -10,12 +11,12 @@ export default class Validator {
   }
 
   getErrors() {
-    return this.errors;
+    return freeze(this.errors);
   }
 
   validate(fields, data) {
     fields.map(field => this.validateField(field, data[field]));
-    return this.errors;
+    return freeze(this.errors);
   }
 
   validateField(field, value) {
@@ -25,13 +26,14 @@ export default class Validator {
       for (let i = 0; i < fieldRules.length; i++) {
         const rule = fieldRules[i];
         result = this.validateRule(rule, field, value, this.config[field][rule]);
+
         if (result) {
           result = { field, rule, value };
-          this.errors[field] = result;
+          this.errors = assign({}, this.errors, { [field]: result });
           break;
         } else {
           if (this.errors.hasOwnProperty(field)) {
-            delete this.errors[field];
+            this.errors = omit(this.errors, field);
           }
         }
       }
