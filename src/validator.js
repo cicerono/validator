@@ -2,6 +2,7 @@ import freeze from 'deep-freeze';
 import { assign, keys, omit } from 'lodash';
 
 import * as rules from './rules';
+import { UnknownRuleError } from './errors';
 
 export default class Validator {
   constructor(config) {
@@ -42,6 +43,9 @@ export default class Validator {
   }
 
   validateRule(ruleName, field, value, options) {
+    if (!Validator.rules.hasOwnProperty(ruleName)) {
+      throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
+    }
     return Validator.rules[ruleName](field, value, options);
   }
 }

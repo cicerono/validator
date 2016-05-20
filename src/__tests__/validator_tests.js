@@ -3,6 +3,7 @@ import sinon from 'sinon';
 
 import * as rules from '../rules';
 import Validator from '../validator';
+import { UnknownRuleError } from '../errors';
 
 test('creating new Validator', t => {
   t.plan(1);
@@ -63,4 +64,11 @@ test('validateField should return object with offending rule name', t => {
     validator.validateField('a', '2.0'),
     { field: 'a', rule: 'numeric/integerOnly', value: '2.0' }
   );
+});
+
+test('validateRule should throw UnknownRuleError when it gets an unkown rule', t => {
+  t.throws(() => {
+    const validator = new Validator({ a: { none: {} } });
+    validator.validateRule('none', 'a', '', {});
+  }, UnknownRuleError, 'Cannot find rule \'none\'');
 });

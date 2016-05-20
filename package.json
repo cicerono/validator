@@ -29,7 +29,10 @@
     ]
   },
   "nyc": {
-    "exclude": ["**/__tests__", "lib"]
+    "exclude": [
+      "**/__tests__",
+      "lib"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +57,7 @@
   },
   "dependencies": {
     "deep-freeze": "0.0.1",
+    "es6-error": "^3.0.0",
     "lodash": "^4.12.0",
     "validator": "^4.5.1"
   }
