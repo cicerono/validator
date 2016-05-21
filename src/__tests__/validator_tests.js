@@ -1,7 +1,6 @@
 import test from 'ava';
 import sinon from 'sinon';
 
-import * as rules from '../rules';
 import Validator from '../validator';
 import { UnknownRuleError } from '../errors';
 
@@ -35,13 +34,6 @@ test('validate should filter out valid values', t => {
   const validator = new Validator({});
   sinon.stub(validator, 'validateField').returns(null);
   t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
-});
-
-test.skip('validateField should call given rule', t => { // eslint-disable-line
-  sinon.spy(rules, 'required');
-  const validator = new Validator({ answer: { required: true } });
-  t.falsy(validator.validateField('answer', null));
-  t.truthy(rules.required.called);
 });
 
 test('validateField should update errors', t => {
