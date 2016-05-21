@@ -42,7 +42,7 @@ export default class Validator {
   }
 
   validateRule(ruleName, field, value, options) {
-    return rules[ruleName](field, value, options);
+    return Validator.rules[ruleName](field, value, options);
   }
 }
 
