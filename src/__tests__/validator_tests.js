@@ -5,24 +5,20 @@ import * as rules from '../rules';
 import Validator from '../validator';
 
 test('creating new Validator', t => {
-  t.plan(1);
   t.truthy(new Validator({}) instanceof Validator);
 });
 
 test('throw if no rules is given to the validator', t => {
-  t.plan(1);
   t.throws(() => new Validator(), Error, 'Missing validator configuration');
 });
 
 test('getErrors should return validation errors', t => {
-  t.plan(1);
   const validator = new Validator({});
   validator.errors = { field: { rule: 'superRule' } };
   t.deepEqual(validator.getErrors(), { field: { rule: 'superRule' } });
 });
 
 test('validateField should return null if field is not in config', t => {
-  t.plan(1);
   const validator = new Validator({});
   t.is(validator.validateField('answer', 42), null);
 });
@@ -41,7 +37,6 @@ test('validate should filter out valid values', t => {
 });
 
 test.skip('validateField should call given rule', t => { // eslint-disable-line
-  t.plan(2);
   sinon.spy(rules, 'required');
   const validator = new Validator({ answer: { required: true } });
   t.falsy(validator.validateField('answer', null));
