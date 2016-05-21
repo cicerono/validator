@@ -1,3 +1,4 @@
-export * from './required';
-export * from './numeric';
 export * from './array';
+export * from './length';
+export * from './numeric';
+export * from './required';
