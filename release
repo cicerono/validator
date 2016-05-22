@@ -1,0 +1,9 @@
+#!/usr/bin/env bash -x
+
+echo "Releasing $1 version"
+
+npm version $1
+npm publish
+
+git push
+git push --tags

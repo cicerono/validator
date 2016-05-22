@@ -4,6 +4,7 @@
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
+    "version": "conventional-changelog -p angular -si changelog.md && git add changelog.md",
     "prepublish": "babel src --out-dir lib",
     "test": "nyc -a --require babel-core/register --reporter cobertura --reporter text ava",
     "lint": "eslint .",
