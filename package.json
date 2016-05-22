@@ -32,7 +32,8 @@
   "nyc": {
     "exclude": [
       "**/__tests__",
-      "lib"
+      "lib",
+      "coverage"
     ]
   },
   "eslintConfig": {
