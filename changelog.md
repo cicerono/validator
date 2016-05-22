@@ -1,3 +1,25 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/relekang/validator/compare/v0.5.0...v0.6.0) (2016-05-22)
+
+
+### Bug Fixes
+
+* Make the extended rules accessible to the validator ([#18](https://github.com/relekang/validator/issues/18)) ([f0118db](https://github.com/relekang/validator/commit/f0118db))
+* Throw UnknownRuleError when rule is not found ([#15](https://github.com/relekang/validator/issues/15)) ([d96113a](https://github.com/relekang/validator/commit/d96113a))
+
+
+### Features
+
+* **rules.length:** Add support for exact in length ([#20](https://github.com/relekang/validator/issues/20)) ([e1108c5](https://github.com/relekang/validator/commit/e1108c5))
+* Add ageByDate validation rule ([01e3d2c](https://github.com/relekang/validator/commit/01e3d2c))
+* Add arrayOf rule ([082469f](https://github.com/relekang/validator/commit/082469f))
+* Add date rule ([#19](https://github.com/relekang/validator/issues/19)) ([8f945c7](https://github.com/relekang/validator/commit/8f945c7))
+* Add length rule ([#17](https://github.com/relekang/validator/issues/17)) ([bce5c4d](https://github.com/relekang/validator/commit/bce5c4d))
+* Add support for arrays in required ([75bef39](https://github.com/relekang/validator/commit/75bef39))
+* Add support for if statements in rule options ([8759104](https://github.com/relekang/validator/commit/8759104)), closes [#6](https://github.com/relekang/validator/issues/6)
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/relekang/validator/compare/v0.4.3...v0.5.0) (2016-05-19)
 
