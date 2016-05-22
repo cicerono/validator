@@ -59,3 +59,18 @@ test('validateRule should throw UnknownRuleError when it gets an unkown rule', t
     validator.validateRule('none', 'a', '', {});
   }, UnknownRuleError, 'Cannot find rule \'none\'');
 });
+
+test('validateRule should return null when if return falsy', t => {
+  const validator = new Validator({});
+  t.is(validator.validateRule('required', 'a', '', { if: ({ b }) => b === 2 }), null);
+});
+
+test('validateRule should return "required" when if of required returns true', t => {
+  const defaults = ['required', 'a', ''];
+  const validator = new Validator({});
+  t.is(validator.validateRule(...defaults, { if: () => true }), 'required');
+  t.is(
+    validator.validateRule(...defaults, { if: ({ b }) => b === 2, values: { b: 2 } }),
+    'required'
+  );
+});

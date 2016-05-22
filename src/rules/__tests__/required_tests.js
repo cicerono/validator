@@ -22,10 +22,6 @@ test('rules.required should return "required" for empty array', t => {
   t.is(required('field', []), 'required');
 });
 
-test('rules.required should return null for null value when options is false', t => {
-  t.is(required('field', null, false), null);
-});
-
 test('rules.required should return null for string', t => {
   t.is(required('field', 'value'), null);
 });

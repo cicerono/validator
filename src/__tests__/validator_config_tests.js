@@ -3,8 +3,6 @@ import test from 'ava';
 import Validator from '../validator';
 
 test('Validator should validate required rules', t => {
-  t.plan(2);
-
   const validator = new Validator({
     noValue: { required: true },
     present: { required: true },

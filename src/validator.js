@@ -1,5 +1,5 @@
 import freeze from 'deep-freeze';
-import { assign, keys, omit } from 'lodash';
+import { assign, constant, get, isBoolean, isFunction, keys, omit } from 'lodash';
 
 import * as rules from './rules';
 import { UnknownRuleError } from './errors';
@@ -16,17 +16,27 @@ export default class Validator {
   }
 
   validate(fields, data) {
-    fields.map(field => this.validateField(field, data[field]));
+    fields.map(field => this.validateField(field, data[field], data));
     return freeze(this.errors);
   }
 
-  validateField(field, value) {
+  validateField(field, value, values = {}) {
     let result = null;
     if (this.config.hasOwnProperty(field)) {
       const fieldRules = keys(this.config[field]);
       for (let i = 0; i < fieldRules.length; i++) {
         const rule = fieldRules[i];
-        result = this.validateRule(rule, field, value, this.config[field][rule]);
+        const options = { values };
+        if (isBoolean(this.config[field][rule])) {
+          options.if = constant(this.config[field][rule]);
+        }
+
+        result = this.validateRule(
+          rule,
+          field,
+          value,
+          assign({}, this.config[field][rule], options)
+        );
 
         if (result) {
           result = { field, rule: result, value };
@@ -43,9 +53,14 @@ export default class Validator {
   }
 
   validateRule(ruleName, field, value, options) {
+    if (isFunction(get(options, 'if')) && !get(options, 'if')(get(options, 'values', {}))) {
+      return null;
+    }
+
     if (!Validator.rules.hasOwnProperty(ruleName)) {
       throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
     }
+
     return Validator.rules[ruleName](field, value, options);
   }
 }
