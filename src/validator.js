@@ -1,5 +1,5 @@
 import freeze from 'deep-freeze';
-import { assign, constant, get, isBoolean, isFunction, keys, omit } from 'lodash';
+import { assign, constant, get, isBoolean, isFunction, keys, map, omit } from 'lodash';
 
 import * as rules from './rules';
 import { UnknownRuleError } from './errors';
@@ -16,7 +16,7 @@ export default class Validator {
   }
 
   validate(fields, data) {
-    fields.map(field => this.validateField(field, data[field], data));
+    map(fields, field => this.validateField(field, data[field], data));
     return freeze(this.errors);
   }
 
