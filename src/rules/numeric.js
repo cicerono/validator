@@ -28,7 +28,7 @@ export function numeric(field, value, options) {
   const min = get(options, 'min');
   if (isObject(min)) {
     if (min.field && evaluateMin(number, get(options, `values.${min.field}`))) {
-      return 'numeric/min/field';
+      return `numeric/min/field/${min.field}`;
     }
   } else {
     if (evaluateMin(number, min)) {
@@ -39,7 +39,7 @@ export function numeric(field, value, options) {
   const max = get(options, 'max');
   if (isObject(max)) {
     if (max.field && evaluateMax(number, get(options, `values.${max.field}`))) {
-      return 'numeric/max/field';
+      return `numeric/max/field/${max.field}`;
     }
   } else {
     if (evaluateMax(number, max)) {
