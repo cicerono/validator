@@ -1,3 +1,18 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/relekang/validator/compare/v0.6.0...v0.7.0) (2016-05-23)
+
+
+### Bug Fixes
+
+* Export all rules ([81dfe88](https://github.com/relekang/validator/commit/81dfe88))
+
+
+### Features
+
+* Add regex rule ([eed0286](https://github.com/relekang/validator/commit/eed0286))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/relekang/validator/compare/v0.5.0...v0.6.0) (2016-05-22)
 
