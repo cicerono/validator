@@ -11,11 +11,11 @@ export function ageByDate(field, value, options) {
   }
 
   if (!isNil(min) && Math.abs(moment(value).diff(moment(), 'years')) < min) {
-    return 'ageByDate/min';
+    return 'ageByDate.min';
   }
 
   if (!isNil(max) && Math.abs(moment(value).diff(moment(), 'years')) > max) {
-    return 'ageByDate/max';
+    return 'ageByDate.max';
   }
 
   return null;

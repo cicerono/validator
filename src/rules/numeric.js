@@ -22,28 +22,28 @@ export function numeric(field, value, options) {
   }
 
   if (get(options, 'integerOnly') && !isInt(number.toString())) {
-    return 'numeric/integerOnly';
+    return 'numeric.integerOnly';
   }
 
   const min = get(options, 'min');
   if (isObject(min)) {
     if (min.field && evaluateMin(number, get(options, `values.${min.field}`))) {
-      return `numeric/min/field/${min.field}`;
+      return 'numeric.min.field';
     }
   } else {
     if (evaluateMin(number, min)) {
-      return 'numeric/min';
+      return 'numeric.min';
     }
   }
 
   const max = get(options, 'max');
   if (isObject(max)) {
     if (max.field && evaluateMax(number, get(options, `values.${max.field}`))) {
-      return `numeric/max/field/${max.field}`;
+      return 'numeric.max.field';
     }
   } else {
     if (evaluateMax(number, max)) {
-      return 'numeric/max';
+      return 'numeric.max';
     }
   }
 

@@ -20,10 +20,10 @@ test('numeric should return null for integer values when integerOnly is true', t
 });
 
 test(
-  'numeric should return "numeric/integerOnly" for non-integer values when integerOnly is true',
+  'numeric should return "numeric.integerOnly" for non-integer values when integerOnly is true',
   t => {
-    t.is(numeric('field', 42.2, { integerOnly: true }), 'numeric/integerOnly');
-    t.is(numeric('field', '42.3', { integerOnly: true }), 'numeric/integerOnly');
+    t.is(numeric('field', 42.2, { integerOnly: true }), 'numeric.integerOnly');
+    t.is(numeric('field', '42.3', { integerOnly: true }), 'numeric.integerOnly');
   }
 );
 
@@ -56,9 +56,9 @@ test('numeric should validate max value', t => {
   t.is(numeric('field', 41, { max: 42 }), null);
   t.is(numeric('field', 42, { max: 42 }), null);
   t.is(numeric('field', 41.9, { max: 42 }), null);
-  t.is(numeric('field', 43, { max: 42 }), 'numeric/max');
-  t.is(numeric('field', 42.1, { max: 42 }), 'numeric/max');
-  t.is(numeric('field', '43', { max: 42 }), 'numeric/max');
+  t.is(numeric('field', 43, { max: 42 }), 'numeric.max');
+  t.is(numeric('field', 42.1, { max: 42 }), 'numeric.max');
+  t.is(numeric('field', '43', { max: 42 }), 'numeric.max');
 });
 
 test('numeric should validate min value', t => {
@@ -66,18 +66,18 @@ test('numeric should validate min value', t => {
   t.is(numeric('field', 43, { min: 42 }), null);
   t.is(numeric('field', 42, { min: 42 }), null);
   t.is(numeric('field', 42.1, { min: 42 }), null);
-  t.is(numeric('field', 41.9, { min: 42 }), 'numeric/min');
-  t.is(numeric('field', 41, { min: 42 }), 'numeric/min');
-  t.is(numeric('field', '41', { min: 42 }), 'numeric/min');
+  t.is(numeric('field', 41.9, { min: 42 }), 'numeric.min');
+  t.is(numeric('field', 41, { min: 42 }), 'numeric.min');
+  t.is(numeric('field', '41', { min: 42 }), 'numeric.min');
 });
 
 test('numeric should validate max value when set by other field', t => {
   t.is(numeric('field', 0, { max: { field: 'a' }, values: { a: 1 } }), null);
-  t.is(numeric('field', 2, { max: { field: 'a' }, values: { a: 1 } }), 'numeric/max/field/a');
+  t.is(numeric('field', 2, { max: { field: 'a' }, values: { a: 1 } }), 'numeric.max.field');
 });
 
 
 test('numeric should validate min value when set by other field', t => {
   t.is(numeric('field', 2, { min: { field: 'a' }, values: { a: 1 } }), null);
-  t.is(numeric('field', 0, { min: { field: 'a' }, values: { a: 1 } }), 'numeric/min/field/a');
+  t.is(numeric('field', 0, { min: { field: 'a' }, values: { a: 1 } }), 'numeric.min.field');
 });

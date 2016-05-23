@@ -14,11 +14,11 @@ export function length(field, value, options) {
   }
 
   if (!isNil(min) && value.length < min) {
-    return 'length/min';
+    return 'length.min';
   }
 
   if (!isNil(max) && value.length > max) {
-    return 'length/max';
+    return 'length.max';
   }
 
   return null;
