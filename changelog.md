@@ -1,3 +1,24 @@
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/relekang/validator/compare/v0.8.1...v0.9.0) (2016-05-23)
+
+
+### Bug Fixes
+
+* Change rule errors to use object path ([710e122](https://github.com/relekang/validator/commit/710e122))
+
+
+### Features
+
+* Add field config to result object ([23af4db](https://github.com/relekang/validator/commit/23af4db))
+
+
+### BREAKING CHANGES
+
+* If you have code that rely on matching the string of
+the validation error. You need to replace all with `/` with `.`.
+
+
+
 <a name="0.8.1"></a>
 ## [0.8.1](https://github.com/relekang/validator/compare/v0.8.0...v0.8.1) (2016-05-23)
 
