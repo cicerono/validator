@@ -39,7 +39,10 @@ test('validate should filter out valid values', t => {
 test('validateField should update errors', t => {
   const validator = new Validator({ a: { required: true }, b: { required: true } });
   validator.validateField('a', null);
-  t.deepEqual(validator.errors, { a: { field: 'a', rule: 'required', value: null } });
+  t.deepEqual(
+    validator.errors,
+    { a: { field: 'a', rule: 'required', value: null, config: { required: true } } },
+  );
   validator.validateField('a', 'c');
   t.deepEqual(validator.errors, {});
 });
@@ -49,7 +52,12 @@ test('validateField should return object with offending rule name', t => {
 
   t.deepEqual(
     validator.validateField('a', '2.0'),
-    { field: 'a', rule: 'numeric/integerOnly', value: '2.0' }
+    {
+      field: 'a',
+      rule: 'numeric.integerOnly',
+      value: '2.0',
+      config: { numeric: { integerOnly: true } },
+    }
   );
 });
 

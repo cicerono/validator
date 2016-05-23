@@ -39,7 +39,7 @@ export default class Validator {
         );
 
         if (result) {
-          result = { field, rule: result, value };
+          result = { field, rule: result, value, config: this.config[field] };
           this.errors = assign({}, this.errors, { [field]: result });
           break;
         } else {
