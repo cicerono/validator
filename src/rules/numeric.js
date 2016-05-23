@@ -1,5 +1,13 @@
-import { get, isNil } from 'lodash';
+import { get, isNil, isObject } from 'lodash';
 import { isInt, isFloat } from 'validator';
+
+function evaluateMin(value, min) {
+  return !isNil(min) && !isFloat(value.toString(), { min });
+}
+
+function evaluateMax(value, max) {
+  return !isNil(max) && !isFloat(value.toString(), { max });
+}
 
 export function numeric(field, value, options) {
   if (!value && parseInt(value, 10) !== 0) {
@@ -18,13 +26,25 @@ export function numeric(field, value, options) {
   }
 
   const min = get(options, 'min');
-  if (!isNil(min) && !isFloat(number.toString(), { min })) {
-    return 'numeric/min';
+  if (isObject(min)) {
+    if (min.field && evaluateMin(number, get(options, `values.${min.field}`))) {
+      return 'numeric/min/field';
+    }
+  } else {
+    if (evaluateMin(number, min)) {
+      return 'numeric/min';
+    }
   }
 
   const max = get(options, 'max');
-  if (!isNil(max) && !isFloat(number.toString(), { max })) {
-    return 'numeric/max';
+  if (isObject(max)) {
+    if (max.field && evaluateMax(number, get(options, `values.${max.field}`))) {
+      return 'numeric/max/field';
+    }
+  } else {
+    if (evaluateMax(number, max)) {
+      return 'numeric/max';
+    }
   }
 
   return null;
