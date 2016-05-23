@@ -5,7 +5,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "version": "conventional-changelog -p angular -si changelog.md && git add changelog.md",
-    "prepublish": "babel src --out-dir lib",
+    "prepublish": "babel src --out-dir lib --ignore test",
     "test": "nyc -a --require babel-core/register --reporter cobertura --reporter text ava",
     "lint": "eslint .",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
@@ -20,6 +20,13 @@
     "url": "https://github.com/relekang/validator/issues"
   },
   "homepage": "https://github.com/relekang/validator#readme",
+  "files": [
+    "lib",
+    "package.json",
+    "license",
+    "readme.md",
+    "changelog.md"
+  ],
   "ava": {
     "verbose": true,
     "files": [
