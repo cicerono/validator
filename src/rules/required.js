@@ -1,4 +1,4 @@
-import { isArray, isEmpty, isString } from 'lodash';
+import { isArray, isEmpty, isString, isNumber } from 'lodash';
 
 export function required(field, value) {
   let result = false;
@@ -7,6 +7,8 @@ export function required(field, value) {
     result = !!value.trim();
   } else if (isArray(value)) {
     result = !isEmpty(value);
+  } else if (isNumber(value)) {
+    result = !!value.toString();
   } else {
     result = !!value;
   }

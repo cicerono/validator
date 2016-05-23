@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { required } from '../';
+import { required } from '../required';
 
 test('rules.required should return "required" for null value', t => {
   t.is(required('field', null), 'required');
@@ -27,6 +27,7 @@ test('rules.required should return null for string', t => {
 });
 
 test('rules.required should return null for number', t => {
+  t.is(required('field', 0), null);
   t.is(required('field', 42), null);
 });
 
