@@ -1,3 +1,13 @@
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/relekang/validator/compare/v0.7.0...v0.7.1) (2016-05-23)
+
+
+### Bug Fixes
+
+* Be more specific to which files are published ([a0f5b80](https://github.com/relekang/validator/commit/a0f5b80))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/relekang/validator/compare/v0.6.0...v0.7.0) (2016-05-23)
 
