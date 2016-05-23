@@ -1,3 +1,13 @@
+<a name="0.8.1"></a>
+## [0.8.1](https://github.com/relekang/validator/compare/v0.8.0...v0.8.1) (2016-05-23)
+
+
+### Bug Fixes
+
+* Add field name to numeric min/max related to field ([53c3584](https://github.com/relekang/validator/commit/53c3584))
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/relekang/validator/compare/v0.7.1...v0.8.0) (2016-05-23)
 
