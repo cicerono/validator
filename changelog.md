@@ -1,3 +1,19 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/relekang/validator/compare/v0.7.1...v0.8.0) (2016-05-23)
+
+
+### Bug Fixes
+
+* **rules.arrayOf:** Make sure it does not evaluate 'values' as a field ([b0985fe](https://github.com/relekang/validator/commit/b0985fe))
+* **rules.required:** Validate the number 0 as true ([fe85014](https://github.com/relekang/validator/commit/fe85014)), closes [#21](https://github.com/relekang/validator/issues/21)
+
+
+### Features
+
+* **rules.numeric:** Add setting max and min based on other field ([ba7b286](https://github.com/relekang/validator/commit/ba7b286))
+
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/relekang/validator/compare/v0.7.0...v0.7.1) (2016-05-23)
 
