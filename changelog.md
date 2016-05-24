@@ -1,3 +1,13 @@
+<a name="0.9.1"></a>
+## [0.9.1](https://github.com/relekang/validator/compare/v0.9.0...v0.9.1) (2016-05-24)
+
+
+### Bug Fixes
+
+* Add support for nested datastructures ([4d4e179](https://github.com/relekang/validator/commit/4d4e179))
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/relekang/validator/compare/v0.8.1...v0.9.0) (2016-05-23)
 
