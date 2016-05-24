@@ -36,6 +36,14 @@ test('validate should filter out valid values', t => {
   t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
 });
 
+test('validate should support nested data structures', t => {
+  const validator = new Validator({ 'a.b': { numeric: true } });
+  t.deepEqual(
+    validator.validate(['a.b'], { a: { b: 'd42' } }),
+    { 'a.b': { field: 'a.b', rule: 'numeric', value: 'd42', config: { numeric: true } } }
+  );
+});
+
 test('validateField should update errors', t => {
   const validator = new Validator({ a: { required: true }, b: { required: true } });
   validator.validateField('a', null);

@@ -16,7 +16,7 @@ export default class Validator {
   }
 
   validate(fields, data) {
-    map(fields, field => this.validateField(field, data[field], data));
+    map(fields, field => this.validateField(field, get(data, field), data));
     return freeze(this.errors);
   }
 
