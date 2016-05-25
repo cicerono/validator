@@ -2,11 +2,17 @@ import { get, isNil, isObject } from 'lodash';
 import { isInt, isFloat } from 'validator';
 
 function evaluateMin(value, min) {
-  return !isNil(min) && !isFloat(value.toString(), { min });
+  if (isNil(min) || min === '') {
+    return false;
+  }
+  return !isFloat(value.toString(), { min });
 }
 
 function evaluateMax(value, max) {
-  return !isNil(max) && !isFloat(value.toString(), { max });
+  if (isNil(max) || max === '') {
+    return false;
+  }
+  return !isFloat(value.toString(), { max });
 }
 
 export function numeric(field, value, options) {
