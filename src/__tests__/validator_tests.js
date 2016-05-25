@@ -12,31 +12,34 @@ test('throw if no rules is given to the validator', t => {
   t.throws(() => new Validator(), Error, 'Missing validator configuration');
 });
 
-test('getErrors should return validation errors', t => {
+test('Validator.getErrors should return validation errors', t => {
   const validator = new Validator({});
   validator.errors = { field: { rule: 'superRule' } };
   t.deepEqual(validator.getErrors(), { field: { rule: 'superRule' } });
 });
 
-test('validateField should return null if field is not in config', t => {
-  const validator = new Validator({});
-  t.is(validator.validateField('answer', 42), null);
-});
-
-test('validate should call validateField', t => {
+test('Validator.validate should call validateField', t => {
   const validator = new Validator({});
   sinon.spy(validator, 'validateField');
   t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
   t.truthy(validator.validateField.called);
 });
 
-test('validate should filter out valid values', t => {
+test('Validator.validate should filter out valid values', t => {
   const validator = new Validator({});
   sinon.stub(validator, 'validateField').returns(null);
   t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
 });
 
-test('validate should support nested data structures', t => {
+test('Validator.validate should accept data=undefined', t => {
+  const validator = new Validator({ answer: { required: true } });
+  t.deepEqual(
+    validator.validate(['answer'], undefined), 
+    { answer: { field: 'answer', rule: 'required', value: undefined, config: { required: true } } }
+  );
+});
+
+test('Validator.validate should support nested data structures', t => {
   const validator = new Validator({ 'a.b': { numeric: true } });
   t.deepEqual(
     validator.validate(['a.b'], { a: { b: 'd42' } }),
@@ -44,7 +47,12 @@ test('validate should support nested data structures', t => {
   );
 });
 
-test('validateField should update errors', t => {
+test('Validator.validateField should return null if field is not in config', t => {
+  const validator = new Validator({});
+  t.is(validator.validateField('answer', 42), null);
+});
+
+test('Validator.validateField should update errors', t => {
   const validator = new Validator({ a: { required: true }, b: { required: true } });
   validator.validateField('a', null);
   t.deepEqual(
@@ -55,7 +63,7 @@ test('validateField should update errors', t => {
   t.deepEqual(validator.errors, {});
 });
 
-test('validateField should return object with offending rule name', t => {
+test('Validator.validateField should return object with offending rule name', t => {
   const validator = new Validator({ a: { numeric: { integerOnly: true } } });
 
   t.deepEqual(
@@ -69,19 +77,19 @@ test('validateField should return object with offending rule name', t => {
   );
 });
 
-test('validateRule should throw UnknownRuleError when it gets an unkown rule', t => {
+test('Validator.validateRule should throw UnknownRuleError when it gets an unkown rule', t => {
   t.throws(() => {
     const validator = new Validator({ a: { none: {} } });
     validator.validateRule('none', 'a', '', {});
   }, UnknownRuleError, 'Cannot find rule \'none\'');
 });
 
-test('validateRule should return null when if return falsy', t => {
+test('Validator.validateRule should return null when if return falsy', t => {
   const validator = new Validator({});
   t.is(validator.validateRule('required', 'a', '', { if: ({ b }) => b === 2 }), null);
 });
 
-test('validateRule should return "required" when if of required returns true', t => {
+test('Validator.validateRule should return "required" when if of required returns true', t => {
   const defaults = ['required', 'a', ''];
   const validator = new Validator({});
   t.is(validator.validateRule(...defaults, { if: () => true }), 'required');
