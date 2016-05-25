@@ -1,3 +1,14 @@
+<a name="0.9.2"></a>
+## [0.9.2](https://github.com/relekang/validator/compare/v0.9.1...v0.9.2) (2016-05-25)
+
+
+### Bug Fixes
+
+* **rules.numeric:** Make field related min/max work with '' ([1d34991](https://github.com/relekang/validator/commit/1d34991))
+* Upgrade validator to version 5.2.0 ([782b658](https://github.com/relekang/validator/commit/782b658))
+
+
+
 <a name="0.9.1"></a>
 ## [0.9.1](https://github.com/relekang/validator/compare/v0.9.0...v0.9.1) (2016-05-24)
 
