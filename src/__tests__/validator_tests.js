@@ -34,7 +34,7 @@ test('Validator.validate should filter out valid values', t => {
 test('Validator.validate should accept data=undefined', t => {
   const validator = new Validator({ answer: { required: true } });
   t.deepEqual(
-    validator.validate(['answer'], undefined), 
+    validator.validate(['answer'], undefined),
     { answer: { field: 'answer', rule: 'required', value: undefined, config: { required: true } } }
   );
 });
