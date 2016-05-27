@@ -1,3 +1,13 @@
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/relekang/validator/compare/v0.9.2...v0.10.0) (2016-05-27)
+
+
+### Features
+
+* Add support for validating multiple items ([#24](https://github.com/relekang/validator/issues/24)) ([ac28032](https://github.com/relekang/validator/commit/ac28032))
+
+
+
 <a name="0.9.2"></a>
 ## [0.9.2](https://github.com/relekang/validator/compare/v0.9.1...v0.9.2) (2016-05-25)
 
