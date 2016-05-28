@@ -40,7 +40,8 @@
     "exclude": [
       "**/__tests__",
       "lib",
-      "coverage"
+      "coverage",
+      "*/rules/index.js"
     ]
   },
   "eslintConfig": {
