@@ -78,6 +78,7 @@ test('numeric should validate max value when set by other field', t => {
   t.is(numeric('field', 1, { max: { field: 'a' }, values: { a: 2 } }), null);
   t.is(numeric('field', 1, { max: { field: 'a' }, values: { a: '2' } }), null);
   t.is(numeric('field', '1', { max: { field: 'a' }, values: { a: 2 } }), null);
+  t.is(numeric('field', '3', { max: { field: 'a' }, values: { a: '250000' } }), null);
   t.is(numeric('field', 2, { max: { field: 'a' }, values: { a: 1 } }), 'numeric.max.field');
 });
 

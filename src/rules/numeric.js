@@ -5,14 +5,14 @@ function evaluateMin(value, min) {
   if (isNil(min) || min === '') {
     return false;
   }
-  return !isFloat(value.toString(), { min });
+  return !isFloat(value.toString(), { min: parseInt(min, 10) });
 }
 
 function evaluateMax(value, max) {
   if (isNil(max) || max === '') {
     return false;
   }
-  return !isFloat(value.toString(), { max });
+  return !isFloat(value.toString(), { max: parseInt(max, 10) });
 }
 
 export function numeric(field, value, options) {
