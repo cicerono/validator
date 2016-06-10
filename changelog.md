@@ -1,3 +1,13 @@
+<a name="0.10.1"></a>
+## [0.10.1](https://github.com/relekang/validator/compare/v0.10.0...v0.10.1) (2016-06-10)
+
+
+### Bug Fixes
+
+* **numeric:** Remove number conversion problem ([093f134](https://github.com/relekang/validator/commit/093f134))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/relekang/validator/compare/v0.9.2...v0.10.0) (2016-05-27)
 
