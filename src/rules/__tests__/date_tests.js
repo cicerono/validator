@@ -35,3 +35,18 @@ test('rules.date should return "date.future" when date is not in future', t => {
   t.is(date('field', inPast, { future: true }), 'date.future');
   t.is(date('field', moment(), { future: true }), 'date.future');
 });
+
+test('rules.date should return null when value is equal', t => {
+  t.is(date('field', moment().toDate(), { minDate: moment() }), null);
+  t.is(date('field', moment().toDate(), { maxDate: moment() }), null);
+});
+
+test('rules.date should return "date.minDate" when value is lower', t => {
+  const inPast = moment().subtract(1, 'day');
+  t.is(date('field', inPast, { minDate: moment() }), 'date.minDate');
+});
+
+test('rules.date should return "date.maxDate" when value is bigger', t => {
+  const inFuture = moment().add(1, 'day');
+  t.is(date('field', inFuture, { maxDate: moment() }), 'date.maxDate');
+});
