@@ -14,5 +14,15 @@ export function date(field, value, options) {
     return 'date.future';
   }
 
+  const minDate = get(options, 'min');
+  if (minDate && moment(minDate).diff(moment(value), 'days') > 0) {
+    return 'date.min';
+  }
+
+  const maxDate = get(options, 'max');
+  if (maxDate && moment(maxDate).diff(moment(value), 'days') < 0) {
+    return 'date.max';
+  }
+
   return null;
 }
