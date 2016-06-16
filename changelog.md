@@ -1,3 +1,8 @@
+<a name="0.11.0"></a>
+# [0.11.0](https://github.com/relekang/validator/compare/v0.10.1...v0.11.0) (2016-06-16)
+
+
+
 <a name="0.10.1"></a>
 ## [0.10.1](https://github.com/relekang/validator/compare/v0.10.0...v0.10.1) (2016-06-10)
 
