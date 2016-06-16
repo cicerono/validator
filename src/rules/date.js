@@ -15,12 +15,12 @@ export function date(field, value, options) {
   }
 
   const minDate = get(options, 'min');
-  if (minDate && moment(minDate).diff(moment(value), 'days') > 0) {
+  if (minDate && Math.round(moment(minDate).diff(moment(value), 'days', true)) > 0) {
     return 'date.min';
   }
 
   const maxDate = get(options, 'max');
-  if (maxDate && moment(maxDate).diff(moment(value), 'days') < 0) {
+  if (maxDate && Math.round(moment(maxDate).diff(moment(value), 'days', true)) < 0) {
     return 'date.max';
   }
 
