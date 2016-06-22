@@ -1,7 +1,7 @@
 import { get, isNil } from 'lodash';
 
 export function length(field, value, options) {
-  if (isNil(value)) {
+  if (isNil(value) || value === '') {
     return null;
   }
 
