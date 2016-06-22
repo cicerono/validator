@@ -21,7 +21,6 @@ test('rules.length should return "length.max" when value is longer than exact', 
   t.is(length('field', '00', { exact: 1 }), 'length.max');
 });
 
-
 test('rules.length should return "length.min" when value is shorter than exact', t => {
   t.is(length('field', '00', { exact: 3 }), 'length.min');
 });
