@@ -1,3 +1,13 @@
+<a name="0.11.1"></a>
+## [0.11.1](https://github.com/relekang/validator/compare/v0.11.0...v0.11.1) (2016-06-22)
+
+
+### Bug Fixes
+
+* Make length validator accept empty string ([248ad18](https://github.com/relekang/validator/commit/248ad18))
+
+
+
 <a name="0.11.0"></a>
 # [0.11.0](https://github.com/relekang/validator/compare/v0.10.1...v0.11.0) (2016-06-16)
 
