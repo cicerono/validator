@@ -1,3 +1,13 @@
+<a name="0.11.2"></a>
+## [0.11.2](https://github.com/relekang/validator/compare/v0.11.1...v0.11.2) (2016-06-22)
+
+
+### Bug Fixes
+
+* Support empty values in date rule ([b82096e](https://github.com/relekang/validator/commit/b82096e))
+
+
+
 <a name="0.11.1"></a>
 ## [0.11.1](https://github.com/relekang/validator/compare/v0.11.0...v0.11.1) (2016-06-22)
 
