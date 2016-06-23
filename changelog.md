@@ -1,3 +1,8 @@
+<a name="0.12.0"></a>
+# [0.12.0](https://github.com/cicerono/validator/compare/v0.11.2...v0.12.0) (2016-06-23)
+
+
+
 <a name="0.11.2"></a>
 ## [0.11.2](https://github.com/relekang/validator/compare/v0.11.1...v0.11.2) (2016-06-22)
 
