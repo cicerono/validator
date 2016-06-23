@@ -1,5 +1,5 @@
 {
-  "name": "@relekang/validator",
+  "name": "cicero-form-validator",
   "version": "0.11.2",
   "description": "",
   "main": "./lib/index.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/relekang/validator.git"
+    "url": "git+https://github.com/cicerono/validator.git"
   },
   "author": "Rolf Erik Lekang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/relekang/validator/issues"
+    "url": "https://github.com/cicerono/validator/issues"
   },
-  "homepage": "https://github.com/relekang/validator#readme",
+  "homepage": "https://github.com/cicerono/validator#readme",
   "files": [
     "lib",
     "package.json",
