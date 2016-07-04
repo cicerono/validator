@@ -1,5 +1,17 @@
 import freeze from 'deep-freeze';
-import { assign, constant, get, isBoolean, isFunction, keys, map, omit, reduce } from 'lodash';
+import {
+  assign,
+  constant,
+  get,
+  isBoolean,
+  isFunction,
+  isUndefined,
+  keys,
+  map,
+  omit,
+  reduce,
+  reject,
+} from 'lodash';
 
 import * as rules from './rules';
 import { UnknownRuleError } from './errors';
@@ -29,39 +41,47 @@ export default class Validator {
   }
 
   validateField(field, value, values = {}) {
-    let result = null;
+    let error = null;
     if (this.config.hasOwnProperty(field)) {
-      const fieldRules = keys(this.config[field]);
-      for (let i = 0; i < fieldRules.length; i++) {
-        const rule = fieldRules[i];
-        const options = { values };
-        if (isBoolean(this.config[field][rule])) {
-          options.if = constant(this.config[field][rule]);
-        }
+      error = this.validateRule(
+        'required',
+        field,
+        value,
+        { values, required: true }
+      );
+      const empty = !!error;
 
-        result = this.validateRule(
-          rule,
-          field,
-          value,
-          assign({}, this.config[field][rule], options)
-        );
+      if (error !== null && !this.evaluateIf(field, 'required', values)) {
+        error = null;
+      }
 
-        if (result) {
-          result = { field, rule: result, value, config: this.config[field] };
-          this.errors = assign({}, this.errors, { [field]: result });
-          break;
-        } else {
-          if (this.errors.hasOwnProperty(field)) {
-            this.errors = omit(this.errors, field);
+      if (!empty) {
+        const fieldRules = reject(keys(this.config[field]), 'required');
+        for (let i = 0; i < fieldRules.length; i++) {
+          const ruleName = fieldRules[i];
+          error = this.validateRule(
+            ruleName,
+            field,
+            value,
+            assign({}, this.config[field][ruleName], { values })
+          );
+
+          if (error !== null) {
+            break;
           }
         }
       }
     }
-    return result;
+    return error;
   }
 
   validateRule(ruleName, field, value, options) {
-    if (isFunction(get(options, 'if')) && !get(options, 'if')(get(options, 'values', {}))) {
+    let condition = get(options, 'if');
+    if (this.config.hasOwnProperty(field) && isBoolean(this.config[field][ruleName])) {
+      condition = constant(this.config[field][ruleName]);
+    }
+
+    if (isFunction(condition) && !condition(get(options, 'values', {}))) {
       return null;
     }
 
@@ -69,7 +89,35 @@ export default class Validator {
       throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
     }
 
-    return Validator.rules[ruleName](field, value, options);
+    let error = Validator.rules[ruleName](field, value, options);
+
+    if (error) {
+      error = { field, rule: error, value, config: this.config[field] };
+      this.errors = assign({}, this.errors, { [field]: error });
+    } else {
+      if (this.errors.hasOwnProperty(field)) {
+        this.errors = omit(this.errors, field);
+      }
+    }
+
+    return error;
+  }
+
+  evaluateIf(field, ruleName, options = {}) {
+    if (isUndefined(this.config[field][ruleName])) {
+      return false;
+    }
+
+    let condition;
+    if (this.config.hasOwnProperty(field) && isBoolean(this.config[field][ruleName])) {
+      condition = constant(this.config[field][ruleName]);
+    }
+
+    if (isFunction(condition)) {
+      return !!condition(get(options, 'values', {}));
+    }
+
+    return true;
   }
 }
 

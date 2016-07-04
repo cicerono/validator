@@ -31,6 +31,16 @@ test('Validator.validate should filter out valid values', t => {
   t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
 });
 
+test('Validator.validateField should not run other validator rules when required fails', t => {
+  const validator = new Validator({ answer: { length: { min: 2 } } });
+  t.deepEqual(validator.validateField('answer', ''), null);
+});
+
+test('Validator.validateField should run other validator rules when required validates', t => {
+  const validator = new Validator({ answer: { length: { min: 2 } } });
+  t.deepEqual(validator.validateField('answer', '1').rule, 'length.min');
+});
+
 test('Validator.validate should accept data=undefined', t => {
   const validator = new Validator({ answer: { required: true } });
   t.deepEqual(
@@ -92,9 +102,9 @@ test('Validator.validateRule should return null when if return falsy', t => {
 test('Validator.validateRule should return "required" when if of required returns true', t => {
   const defaults = ['required', 'a', ''];
   const validator = new Validator({});
-  t.is(validator.validateRule(...defaults, { if: () => true }), 'required');
+  t.is(validator.validateRule(...defaults, { if: () => true }).rule, 'required');
   t.is(
-    validator.validateRule(...defaults, { if: ({ b }) => b === 2, values: { b: 2 } }),
+    validator.validateRule(...defaults, { if: ({ b }) => b === 2, values: { b: 2 } }).rule,
     'required'
   );
 });
