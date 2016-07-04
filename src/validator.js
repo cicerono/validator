@@ -42,29 +42,21 @@ export default class Validator {
 
   validateField(field, value, values = {}) {
     let error = null;
-    if (this.config.hasOwnProperty(field)) {
-      error = this.validateRule(
-        'required',
-        field,
-        value,
-        { values, required: true }
-      );
-      const empty = !!error;
+    if (this.hasRulesForField(field)) {
+      error = this.validateRule('required', field, value, { values, force: true });
 
-      if (error !== null && !this.evaluateIf(field, 'required', values)) {
+      const fieldIsFilled = !error;
+
+      if (error !== null && !this.evaluateIf(field, 'required', { values })) {
         error = null;
       }
 
-      if (!empty) {
+      if (fieldIsFilled) {
         const fieldRules = reject(keys(this.config[field]), 'required');
         for (let i = 0; i < fieldRules.length; i++) {
           const ruleName = fieldRules[i];
-          error = this.validateRule(
-            ruleName,
-            field,
-            value,
-            assign({}, this.config[field][ruleName], { values })
-          );
+          const ruleConfig = this.config[field][ruleName];
+          error = this.validateRule(ruleName, field, value, assign({}, ruleConfig, { values }));
 
           if (error !== null) {
             break;
@@ -72,16 +64,18 @@ export default class Validator {
         }
       }
     }
+
+    if (error) {
+      this.errors = assign({}, this.errors, { [error.field]: error });
+    } else {
+      this.removeError(field);
+    }
+
     return error;
   }
 
   validateRule(ruleName, field, value, options) {
-    let condition = get(options, 'if');
-    if (this.config.hasOwnProperty(field) && isBoolean(this.config[field][ruleName])) {
-      condition = constant(this.config[field][ruleName]);
-    }
-
-    if (isFunction(condition) && !condition(get(options, 'values', {}))) {
+    if (!options.force && !this.evaluateIf(field, ruleName, options)) {
       return null;
     }
 
@@ -89,28 +83,25 @@ export default class Validator {
       throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
     }
 
-    let error = Validator.rules[ruleName](field, value, options);
+    const error = Validator.rules[ruleName](field, value, options);
 
     if (error) {
-      error = { field, rule: error, value, config: this.config[field] };
-      this.errors = assign({}, this.errors, { [field]: error });
-    } else {
-      if (this.errors.hasOwnProperty(field)) {
-        this.errors = omit(this.errors, field);
-      }
+      return { field, rule: error, value, config: this.config[field] };
     }
 
     return error;
   }
 
   evaluateIf(field, ruleName, options = {}) {
-    if (isUndefined(this.config[field][ruleName])) {
+    const ruleConfig = get(this.config[field], ruleName);
+
+    if (isUndefined(ruleConfig)) {
       return false;
     }
 
-    let condition;
-    if (this.config.hasOwnProperty(field) && isBoolean(this.config[field][ruleName])) {
-      condition = constant(this.config[field][ruleName]);
+    let condition = get(ruleConfig, 'if');
+    if (isBoolean(ruleConfig)) {
+      condition = constant(ruleConfig);
     }
 
     if (isFunction(condition)) {
@@ -118,6 +109,16 @@ export default class Validator {
     }
 
     return true;
+  }
+
+  hasRulesForField(field) {
+    return this.config.hasOwnProperty(field);
+  }
+
+  removeError(field) {
+    if (this.errors.hasOwnProperty(field)) {
+      this.errors = omit(this.errors, field);
+    }
   }
 }
 

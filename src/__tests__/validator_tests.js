@@ -95,16 +95,20 @@ test('Validator.validateRule should throw UnknownRuleError when it gets an unkow
 });
 
 test('Validator.validateRule should return null when if return falsy', t => {
-  const validator = new Validator({});
-  t.is(validator.validateRule('required', 'a', '', { if: ({ b }) => b === 2 }), null);
+  const validator = new Validator({ a: { numeric: { if: ({ b }) => b === 2 } } });
+  t.is(validator.validateRule('numeric', 'a', 'dd', {}), null);
 });
 
-test('Validator.validateRule should return "required" when if of required returns true', t => {
-  const defaults = ['required', 'a', ''];
-  const validator = new Validator({});
-  t.is(validator.validateRule(...defaults, { if: () => true }).rule, 'required');
-  t.is(
-    validator.validateRule(...defaults, { if: ({ b }) => b === 2, values: { b: 2 } }).rule,
-    'required'
-  );
+test('Validator.validateRule should return "numeric" when if of numeric returns true', t => {
+  const validator = new Validator({ a: { numeric: { if: () => true } } });
+  t.is(validator.validateRule('numeric', 'a', 'dd', {}).rule, 'numeric');
 });
+
+test(
+  'Validator.validateRule should return "numeric" when if of numeric returns ' +
+  'true based on other field',
+  t => {
+    const validator = new Validator({ a: { numeric: { if: ({ b }) => b === 2 } } });
+    t.is(validator.validateRule('numeric', 'a', 'dd', { values: { b: 2 } }).rule, 'numeric');
+  }
+);
