@@ -16,10 +16,6 @@ function evaluateMax(value, max) {
 }
 
 export function numeric(field, value, options) {
-  if (!value && parseInt(value, 10) !== 0) {
-    return null;
-  }
-
   const delimiter = get(options, 'delimiter');
   const number = delimiter ? value.replace(delimiter, '.') : value;
 

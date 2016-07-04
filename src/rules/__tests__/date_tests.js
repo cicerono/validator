@@ -3,12 +3,6 @@ import moment from 'moment';
 
 import { date } from '../date';
 
-test('rules.date should return null for empty values', t => {
-  t.is(date('field', null, { format: 'YYYY-MM-DD' }), null);
-  t.is(date('field', undefined, { format: 'YYYY-MM-DD' }), null);
-  t.is(date('field', '', { format: 'YYYY-MM-DD' }), null);
-});
-
 test('rules.date should return null for valid formats', t => {
   t.is(date('field', '2015-05-05'), null);
   t.is(date('field', '2016-02-29'), null);

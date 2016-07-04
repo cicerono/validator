@@ -4,9 +4,7 @@ import { length } from '../';
 
 test('rules.length should return null accepted values', t => {
   t.is(length('field', '0', { min: 1, max: 1 }), null);
-  t.is(length('field', null, { min: 1, max: 1 }), null);
-  t.is(length('field', undefined, { min: 1, max: 1 }), null);
-  t.is(length('field', '', { min: 1, max: 1 }), null);
+  t.is(length('field', '0', { exact: 1 }), null);
 });
 
 test('rules.length should return "length.min" when value is to short', t => {

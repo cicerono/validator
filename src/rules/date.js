@@ -1,11 +1,7 @@
-import { get, isNil } from 'lodash';
+import { get } from 'lodash';
 import moment from 'moment';
 
 export function date(field, value, options) {
-  if (isNil(value) || value === '') {
-    return null;
-  }
-
   if (!moment(value, get(options, 'format'), true).isValid()) {
     return 'date.format';
   }
