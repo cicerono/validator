@@ -1,3 +1,27 @@
+<a name="0.13.0"></a>
+# [0.13.0](https://github.com/cicerono/validator/compare/v0.12.0...v0.13.0) (2016-07-05)
+
+
+### Bug Fixes
+
+* Make regex rule actually use the pattern ([98f4d7a](https://github.com/cicerono/validator/commit/98f4d7a))
+* Only run other rules when required validates ([#32](https://github.com/cicerono/validator/issues/32)) ([69e92aa](https://github.com/cicerono/validator/commit/69e92aa))
+
+
+### BREAKING CHANGES
+
+* This will result in rules not being run with empty
+values so if there are rules that depends on empty values they would not
+work any longer.
+
+* fix: Remove empty value checks from rules
+
+* fix: Alter check for if statements so it works for rules and required
+
+* refactor: Move fetching of config for rule to a function
+
+
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/cicerono/validator/compare/v0.11.2...v0.12.0) (2016-06-23)
 
