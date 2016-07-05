@@ -19,7 +19,7 @@ import { UnknownRuleError } from './errors';
 export default class Validator {
   constructor(config) {
     if (!config) { throw new Error('Missing validator configuration'); }
-    this.config = config;
+    this.config = freeze(config);
     this.errors = {};
   }
 
@@ -55,7 +55,7 @@ export default class Validator {
         const fieldRules = reject(keys(this.config[field]), 'required');
         for (let i = 0; i < fieldRules.length; i++) {
           const ruleName = fieldRules[i];
-          const ruleConfig = this.config[field][ruleName];
+          const ruleConfig = this.getRuleConfig(field, ruleName);
           error = this.validateRule(ruleName, field, value, assign({}, ruleConfig, { values }));
 
           if (error !== null) {
@@ -93,7 +93,7 @@ export default class Validator {
   }
 
   evaluateIf(field, ruleName, options = {}) {
-    const ruleConfig = get(this.config[field], ruleName);
+    const ruleConfig = this.getRuleConfig(field, ruleName);
 
     if (isUndefined(ruleConfig)) {
       return false;
@@ -113,6 +113,10 @@ export default class Validator {
 
   hasRulesForField(field) {
     return this.config.hasOwnProperty(field);
+  }
+
+  getRuleConfig(field, ruleName) {
+    return get(this.config[field], ruleName);
   }
 
   removeError(field) {
