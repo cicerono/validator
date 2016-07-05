@@ -1,10 +1,6 @@
 import { get, isNil } from 'lodash';
 
 export function length(field, value, options) {
-  if (isNil(value) || value === '') {
-    return null;
-  }
-
   let min = get(options, 'min');
   let max = get(options, 'max');
 

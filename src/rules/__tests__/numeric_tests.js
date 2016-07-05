@@ -31,18 +31,6 @@ test('numeric should return null for double values with custom delimiter', t => 
   t.is(numeric('field', '4,2', { delimiter: ',' }), null);
 });
 
-test('numeric should return null for empty string', t => {
-  t.is(numeric('field', ''), null);
-});
-
-test('numeric should return null for null', t => {
-  t.is(numeric('field', null), null);
-});
-
-test('numeric should return null for undefined', t => {
-  t.is(numeric('field', undefined), null);
-});
-
 test('numeric should return "numeric" letters', t => {
   t.is(numeric('field', 'not a number'), 'numeric');
 });

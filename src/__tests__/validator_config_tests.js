@@ -16,19 +16,22 @@ test('Validator should validate required rules', t => {
     notRequired: '',
   });
 
-  t.deepEqual(result, {
-    noValue: {
-      field: 'noValue',
-      rule: 'required',
-      value: null,
-      config: { required: true },
-    },
-    notInObject: {
-      field: 'notInObject',
-      rule: 'required',
-      value: undefined,
-      config: { required: true },
-    },
+  t.is(result.hasOwnProperty('notRequired'), false);
+  t.is(result.hasOwnProperty('present'), false);
+
+  t.deepEqual(result.noValue, {
+    field: 'noValue',
+    rule: 'required',
+    value: null,
+    config: { required: true },
   });
+
+  t.deepEqual(result.notInObject, {
+    field: 'notInObject',
+    rule: 'required',
+    value: undefined,
+    config: { required: true },
+  });
+
   t.deepEqual(result, validator.getErrors());
 });
