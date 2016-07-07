@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { length } from '../';
+import length from '../length';
 
 test('rules.length should return null accepted values', t => {
   t.is(length('field', '0', { min: 1, max: 1 }), null);

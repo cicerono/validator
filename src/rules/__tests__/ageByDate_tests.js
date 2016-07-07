@@ -1,7 +1,7 @@
 import test from 'ava';
 import moment from 'moment';
 
-import { ageByDate } from '../ageByDate';
+import ageByDate from '../ageByDate';
 
 test('rules.ageByDate should return null for valid values', t => {
   const two = moment().subtract(2, 'years').format('YYYY-MM-DD');

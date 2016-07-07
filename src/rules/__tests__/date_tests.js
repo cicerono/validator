@@ -1,7 +1,7 @@
 import test from 'ava';
 import moment from 'moment';
 
-import { date } from '../date';
+import date from '../date';
 
 test('rules.date should return null for valid formats', t => {
   t.is(date('field', '2015-05-05'), null);

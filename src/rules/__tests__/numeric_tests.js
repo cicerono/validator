@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import { numeric } from '../numeric';
+import numeric from '../numeric';
 
 test('numeric should return null for integer values', t => {
   t.is(numeric('field', 0), null);
