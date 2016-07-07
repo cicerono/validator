@@ -1,6 +1,6 @@
 import { get, isNil } from 'lodash';
 
-export function length(field, value, options) {
+export default function length(field, value, options) {
   let min = get(options, 'min');
   let max = get(options, 'max');
 

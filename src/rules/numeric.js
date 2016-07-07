@@ -15,7 +15,7 @@ function evaluateMax(value, max) {
   return !isFloat(value.toString(), { max: parseInt(max, 10) });
 }
 
-export function numeric(field, value, options) {
+export default function numeric(field, value, options) {
   const delimiter = get(options, 'delimiter');
   const number = delimiter ? value.replace(delimiter, '.') : value;
 

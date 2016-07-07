@@ -1,6 +1,6 @@
 import { isArray, isEmpty, isString, isNumber } from 'lodash';
 
-export function required(field, value) {
+export default function required(field, value) {
   let result = false;
 
   if (isString(value)) {

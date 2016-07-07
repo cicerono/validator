@@ -1,7 +1,7 @@
 import { get, isNil } from 'lodash';
 import moment from 'moment';
 
-export function ageByDate(field, value, options) {
+export default function ageByDate(field, value, options) {
   let min = get(options, 'min');
   let max = get(options, 'max');
 
