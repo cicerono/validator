@@ -4,9 +4,9 @@ export default function length(field, value, options) {
   let min = get(options, 'min');
   let max = get(options, 'max');
 
-  if (get(options, 'exact')) {
-    min = get(options, 'exact');
-    max = get(options, 'exact');
+  const exact = get(options, 'exact');
+  if (!isNil(exact) && value.length != exact) {
+    return 'length.exact';
   }
 
   if (!isNil(min) && value.length < min) {
