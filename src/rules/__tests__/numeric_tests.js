@@ -19,6 +19,13 @@ test('numeric should return null for integer values when integerOnly is true', t
   t.is(numeric('field', '42', { integerOnly: true }), null);
 });
 
+test('numeric should validate non-integer values when limits are non-integers', t => {
+  t.is(numeric('field', 0.0, { integerOnly: false, min: 0, max: 0.4 }), null);
+  t.is(numeric('field', 42.5, { integerOnly: false, min: 42.1, max: 42.8 }), null);
+  t.is(numeric('field', '42.5', { integerOnly: false, min: 42.1, max: 42.8 }), null);
+  t.is(numeric('field', '9999999999.5', { integerOnly: false, min: 0, max: 9999999999.99 }), null);
+});
+
 test(
   'numeric should return "numeric.integerOnly" for non-integer values when integerOnly is true',
   t => {
