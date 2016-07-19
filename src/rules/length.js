@@ -1,12 +1,12 @@
 import { get, isNil } from 'lodash';
 
 export default function length(field, value, options) {
-  let min = get(options, 'min');
-  let max = get(options, 'max');
+  const min = get(options, 'min');
+  const max = get(options, 'max');
 
-  if (get(options, 'exact')) {
-    min = get(options, 'exact');
-    max = get(options, 'exact');
+  const exact = get(options, 'exact');
+  if (!isNil(exact) && value.length !== exact) {
+    return 'length.exact';
   }
 
   if (!isNil(min) && value.length < min) {

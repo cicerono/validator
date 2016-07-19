@@ -15,10 +15,10 @@ test('rules.length should return "length.max" when value is to long', t => {
   t.is(length('field', '00', { max: 1 }), 'length.max');
 });
 
-test('rules.length should return "length.max" when value is longer than exact', t => {
-  t.is(length('field', '00', { exact: 1 }), 'length.max');
+test('rules.length should return "length.exact" when value is longer than exact', t => {
+  t.is(length('field', '00', { exact: 1 }), 'length.exact');
 });
 
-test('rules.length should return "length.min" when value is shorter than exact', t => {
-  t.is(length('field', '00', { exact: 3 }), 'length.min');
+test('rules.length should return "length.exact" when value is shorter than exact', t => {
+  t.is(length('field', '00', { exact: 3 }), 'length.exact');
 });
