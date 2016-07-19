@@ -1,3 +1,19 @@
+<a name="0.14.0"></a>
+# [0.14.0](https://github.com/cicerono/validator/compare/v0.13.0...v0.14.0) (2016-07-19)
+
+
+### Bug Fixes
+
+* checkstyle violations ([81e9c5c](https://github.com/cicerono/validator/commit/81e9c5c))
+* fixing rounding of min/max limit value ([b9a28a7](https://github.com/cicerono/validator/commit/b9a28a7))
+
+
+### Features
+
+* provide new rule ([3f328c2](https://github.com/cicerono/validator/commit/3f328c2))
+
+
+
 <a name="0.13.0"></a>
 # [0.13.0](https://github.com/cicerono/validator/compare/v0.12.0...v0.13.0) (2016-07-05)
 
