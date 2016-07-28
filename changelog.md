@@ -1,3 +1,13 @@
+<a name="0.14.1"></a>
+## [0.14.1](https://github.com/cicerono/validator/compare/v0.14.0...v0.14.1) (2016-07-28)
+
+
+### Bug Fixes
+
+* Add fallback to iso format for date validator ([d13caa5](https://github.com/cicerono/validator/commit/d13caa5))
+
+
+
 <a name="0.14.0"></a>
 # [0.14.0](https://github.com/cicerono/validator/compare/v0.13.0...v0.14.0) (2016-07-19)
 
