@@ -25,6 +25,13 @@ test('Validator.validate should call validateField', t => {
   t.truthy(validator.validateField.called);
 });
 
+test('Validator.validate should reset errors', t => {
+  const validator = new Validator({ answer: { required: true } });
+  validator.validate(['answer'], { }, {});
+  const errors = validator.validate([], { }, {});
+  t.deepEqual(errors, {});
+});
+
 test('Validator.validate should filter out valid values', t => {
   const validator = new Validator({});
   sinon.stub(validator, 'validateField').returns(null);
