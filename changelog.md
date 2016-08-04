@@ -1,3 +1,13 @@
+<a name="0.14.2"></a>
+## [0.14.2](https://github.com/cicerono/validator/compare/v0.14.1...v0.14.2) (2016-08-04)
+
+
+### Bug Fixes
+
+* reset errors between calls to validate ([#45](https://github.com/cicerono/validator/issues/45)) ([057be15](https://github.com/cicerono/validator/commit/057be15))
+
+
+
 <a name="0.14.1"></a>
 ## [0.14.1](https://github.com/cicerono/validator/compare/v0.14.0...v0.14.1) (2016-07-28)
 
