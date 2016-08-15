@@ -1,3 +1,13 @@
+<a name="0.14.3"></a>
+## [0.14.3](https://github.com/cicerono/validator/compare/v0.14.2...v0.14.3) (2016-08-15)
+
+
+### Bug Fixes
+
+* add support of boolean value in "required" validator ([#47](https://github.com/cicerono/validator/issues/47)) ([3ed9f14](https://github.com/cicerono/validator/commit/3ed9f14))
+
+
+
 <a name="0.14.2"></a>
 ## [0.14.2](https://github.com/cicerono/validator/compare/v0.14.1...v0.14.2) (2016-08-04)
 
