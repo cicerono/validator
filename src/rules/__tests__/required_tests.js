@@ -34,3 +34,8 @@ test('rules.required should return null for number', t => {
 test('rules.required should return null for non-empty-array', t => {
   t.is(required('field', [42]), null);
 });
+
+test('rules.required should return null for boolean values', t => {
+  t.is(required('field', true), null);
+  t.is(required('field', false), null);
+});
