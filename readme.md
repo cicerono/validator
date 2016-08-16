@@ -19,6 +19,24 @@ validator.validate(['field'], {})
 // => { field: { field: 'field', rule: 'required', value: undefined } }
 ```
 
+### Configuration
+
+#### Options that work for all rules
+##### `if`
+Should be a function which returns a boolean. It will be called with
+an object containing all the fields as a first argument. 
+
+The example below will make field required if otherField is filled with `"100"`.
+
+```js
+{
+  field: {
+    required: { if: (fields) => fields.otherField === "100" }
+  }
+}
+
+```
+
 ### Adding new rules
 
 ```javascript
@@ -39,7 +57,7 @@ returns `null` if the value validates. If not it should return the name of the
 rule that did not validate. A rule can have sub-rules (e.g. numeric validation with max value). It should then return `'rule/sub-rule'` if the data does not validate.
 
 ## How to run tests on your PC
-JavaScript test runner used in this project is called `Ava`. So first think, you need to do is to install Ava module
+JavaScript test runner used in this project is called AVA. So first thing, you need to do is to install AVA module
 
 ```javascript
 npm install --global ava
