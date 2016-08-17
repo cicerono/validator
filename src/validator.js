@@ -6,8 +6,11 @@ import {
   isBoolean,
   isFunction,
   isUndefined,
+  isArray,
   keys,
   map,
+  flatten,
+  forEach,
   omit,
   reduce,
   reject,
@@ -67,7 +70,11 @@ export default class Validator {
     }
 
     if (error) {
-      this.errors = assign({}, this.errors, { [error.field]: error });
+      if (isArray(error)) {
+        forEach(error, (e) => { this.errors = assign({}, this.errors, { [e.field]: e }); });
+      } else {
+        this.errors = assign({}, this.errors, { [error.field]: error });
+      }
     } else {
       this.removeError(field);
     }
@@ -87,10 +94,21 @@ export default class Validator {
     const error = Validator.rules[ruleName](field, value, options);
 
     if (error) {
-      return { field, rule: error, value, config: this.config[field] };
+      return this.createError(field, error, value, this.config[field]);
     }
 
     return error;
+  }
+
+  createError(field, error, value, config) {
+    if (isArray(error)) {
+      return flatten(map(error, (nestedError, i) =>
+          map(keys(nestedError), (key) =>
+            this.createError(`${field}[${i}].${key}`,
+              nestedError[key].rule, nestedError[key].value, nestedError[key].config)))
+      );
+    }
+    return { field, rule: error, value, config };
   }
 
   evaluateIf(field, ruleName, options = {}) {
