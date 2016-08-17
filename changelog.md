@@ -1,3 +1,13 @@
+<a name="0.15.0"></a>
+# [0.15.0](https://github.com/cicerono/validator/compare/v0.14.3...v0.15.0) (2016-08-17)
+
+
+### Features
+
+* flatten arrayOf validation output ([#49](https://github.com/cicerono/validator/issues/49)) ([f0074ec](https://github.com/cicerono/validator/commit/f0074ec)), closes [#49](https://github.com/cicerono/validator/issues/49)
+
+
+
 <a name="0.14.3"></a>
 ## [0.14.3](https://github.com/cicerono/validator/compare/v0.14.2...v0.14.3) (2016-08-15)
 
