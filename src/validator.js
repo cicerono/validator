@@ -19,6 +19,17 @@ import {
 import * as rules from './rules';
 import { UnknownRuleError } from './errors';
 
+function createError(field, error, value, config) {
+  if (isArray(error)) {
+    return flatten(map(error, (nestedError, i) =>
+      map(keys(nestedError), (key) =>
+        createError(`${field}[${i}].${key}`,
+          nestedError[key].rule, nestedError[key].value, nestedError[key].config)))
+    );
+  }
+  return { field, rule: error, value, config };
+}
+
 export default class Validator {
   constructor(config) {
     if (!config) { throw new Error('Missing validator configuration'); }
@@ -71,7 +82,9 @@ export default class Validator {
 
     if (error) {
       if (isArray(error)) {
-        forEach(error, (e) => { this.errors = assign({}, this.errors, { [e.field]: e }); });
+        forEach(error, (nestedError) => {
+          this.errors = assign({}, this.errors, { [nestedError.field]: nestedError });
+        });
       } else {
         this.errors = assign({}, this.errors, { [error.field]: error });
       }
@@ -94,21 +107,10 @@ export default class Validator {
     const error = Validator.rules[ruleName](field, value, options);
 
     if (error) {
-      return this.createError(field, error, value, this.config[field]);
+      return createError(field, error, value, this.config[field]);
     }
 
     return error;
-  }
-
-  createError(field, error, value, config) {
-    if (isArray(error)) {
-      return flatten(map(error, (nestedError, i) =>
-          map(keys(nestedError), (key) =>
-            this.createError(`${field}[${i}].${key}`,
-              nestedError[key].rule, nestedError[key].value, nestedError[key].config)))
-      );
-    }
-    return { field, rule: error, value, config };
   }
 
   evaluateIf(field, ruleName, options = {}) {
