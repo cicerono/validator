@@ -6,8 +6,11 @@ import {
   isBoolean,
   isFunction,
   isUndefined,
+  isArray,
   keys,
   map,
+  flatten,
+  forEach,
   omit,
   reduce,
   reject,
@@ -15,6 +18,17 @@ import {
 
 import * as rules from './rules';
 import { UnknownRuleError } from './errors';
+
+function createError(field, error, value, config) {
+  if (isArray(error)) {
+    return flatten(map(error, (nestedError, i) =>
+      map(keys(nestedError), (key) =>
+        createError(`${field}[${i}].${key}`,
+          nestedError[key].rule, nestedError[key].value, nestedError[key].config)))
+    );
+  }
+  return { field, rule: error, value, config };
+}
 
 export default class Validator {
   constructor(config) {
@@ -67,7 +81,13 @@ export default class Validator {
     }
 
     if (error) {
-      this.errors = assign({}, this.errors, { [error.field]: error });
+      if (isArray(error)) {
+        forEach(error, (nestedError) => {
+          this.errors = assign({}, this.errors, { [nestedError.field]: nestedError });
+        });
+      } else {
+        this.errors = assign({}, this.errors, { [error.field]: error });
+      }
     } else {
       this.removeError(field);
     }
@@ -87,7 +107,7 @@ export default class Validator {
     const error = Validator.rules[ruleName](field, value, options);
 
     if (error) {
-      return { field, rule: error, value, config: this.config[field] };
+      return createError(field, error, value, this.config[field]);
     }
 
     return error;
