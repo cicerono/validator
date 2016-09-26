@@ -1,3 +1,18 @@
+<a name="0.16.0"></a>
+# [0.16.0](https://github.com/cicerono/validator/compare/v0.15.0...v0.16.0) (2016-09-26)
+
+
+### Bug Fixes
+
+* Export correct value for list of rules ([fe0a965](https://github.com/cicerono/validator/commit/fe0a965))
+
+
+### Features
+
+* Add new rule sumArray ([#51](https://github.com/cicerono/validator/issues/51)) ([eec4db4](https://github.com/cicerono/validator/commit/eec4db4)), closes [#28](https://github.com/cicerono/validator/issues/28)
+
+
+
 <a name="0.15.0"></a>
 # [0.15.0](https://github.com/cicerono/validator/compare/v0.14.3...v0.15.0) (2016-08-17)
 
