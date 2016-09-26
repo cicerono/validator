@@ -3,7 +3,7 @@ import test from 'ava';
 
 import Validator from '../validator';
 import extend from '../extend';
-import rules from '../rules';
+import * as rules from '../rules';
 
 test('should export Validator', t => {
   t.is(require('../index').Validator, Validator);
