@@ -5,3 +5,4 @@ export { default as length } from './length';
 export { default as numeric } from './numeric';
 export { default as regex } from './regex';
 export { default as required } from './required';
+export { default as sumArray } from './sumArray';
