@@ -14,8 +14,8 @@ test('rules.required should return "required" for empty string', t => {
   t.is(required('field', ''), 'required');
 });
 
-test('rules.required should return "required" for string with only spaces', t => {
-  t.is(required('field', '   '), 'required');
+test('rules.required should return null for string with only spaces', t => {
+  t.is(required('field', '   '), null);
 });
 
 test('rules.required should return "required" for empty array', t => {
