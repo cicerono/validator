@@ -1,4 +1,4 @@
-import { isArray, isEmpty, isString, isNumber, isBoolean } from 'lodash';
+import { isArray, isEmpty, isNumber, isBoolean } from 'lodash';
 
 export default function required(field, value) {
   let result = false;
