@@ -1,3 +1,18 @@
+<a name="0.17.0"></a>
+# [0.17.0](https://github.com/cicerono/validator/compare/v0.16.0...v0.17.0) (2016-10-12)
+
+
+### Bug Fixes
+
+* require should accept spaces as valid ([#52](https://github.com/cicerono/validator/issues/52)) ([b00d608](https://github.com/cicerono/validator/commit/b00d608))
+
+
+### BREAKING CHANGES
+
+* This will make values with spaces end up in other validation rules.
+
+
+
 <a name="0.16.0"></a>
 # [0.16.0](https://github.com/cicerono/validator/compare/v0.15.0...v0.16.0) (2016-09-26)
 
