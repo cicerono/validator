@@ -1,41 +1,40 @@
-import test from 'ava';
-
+/* eslint-env jest */
 import required from '../required';
 
-test('rules.required should return "required" for null value', t => {
-  t.is(required('field', null), 'required');
+it('rules.required should return "required" for null value', () => {
+  expect(required('field', null)).toBe('required');
 });
 
-test('rules.required should return "required" for undefined value', t => {
-  t.is(required('field', undefined), 'required');
+it('rules.required should return "required" for undefined value', () => {
+  expect(required('field', undefined)).toBe('required');
 });
 
-test('rules.required should return "required" for empty string', t => {
-  t.is(required('field', ''), 'required');
+it('rules.required should return "required" for empty string', () => {
+  expect(required('field', '')).toBe('required');
 });
 
-test('rules.required should return null for string with only spaces', t => {
-  t.is(required('field', '   '), null);
+it('rules.required should return null for string with only spaces', () => {
+  expect(required('field', '   ')).toBe(null);
 });
 
-test('rules.required should return "required" for empty array', t => {
-  t.is(required('field', []), 'required');
+it('rules.required should return "required" for empty array', () => {
+  expect(required('field', [])).toBe('required');
 });
 
-test('rules.required should return null for string', t => {
-  t.is(required('field', 'value'), null);
+it('rules.required should return null for string', () => {
+  expect(required('field', 'value')).toBe(null);
 });
 
-test('rules.required should return null for number', t => {
-  t.is(required('field', 0), null);
-  t.is(required('field', 42), null);
+it('rules.required should return null for number', () => {
+  expect(required('field', 0)).toBe(null);
+  expect(required('field', 42)).toBe(null);
 });
 
-test('rules.required should return null for non-empty-array', t => {
-  t.is(required('field', [42]), null);
+it('rules.required should return null for non-empty-array', () => {
+  expect(required('field', [42])).toBe(null);
 });
 
-test('rules.required should return null for boolean values', t => {
-  t.is(required('field', true), null);
-  t.is(required('field', false), null);
+it('rules.required should return null for boolean values', () => {
+  expect(required('field', true)).toBe(null);
+  expect(required('field', false)).toBe(null);
 });

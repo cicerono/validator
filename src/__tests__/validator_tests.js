@@ -1,126 +1,120 @@
-import test from 'ava';
+/* eslint-env jest */
 import sinon from 'sinon';
 
 import Validator from '../validator';
 import { UnknownRuleError } from '../errors';
 
-test('creating new Validator', t => {
-  t.truthy(new Validator({}) instanceof Validator);
+it('creating new Validator', () => {
+  expect(new Validator({}) instanceof Validator).toBeTruthy();
 });
 
-test('throw if no rules is given to the validator', t => {
-  t.throws(() => new Validator(), Error, 'Missing validator configuration');
+it('throw if no rules is given to the validator', () => {
+  expect(() => new Validator()).toThrowError(Error);
 });
 
-test('Validator.getErrors should return validation errors', t => {
+it('Validator.getErrors should return validation errors', () => {
   const validator = new Validator({});
   validator.errors = { field: { rule: 'superRule' } };
-  t.deepEqual(validator.getErrors(), { field: { rule: 'superRule' } });
+  expect(validator.getErrors()).toEqual({ field: { rule: 'superRule' } });
 });
 
-test('Validator.validate should call validateField', t => {
+it('Validator.validate should call validateField', () => {
   const validator = new Validator({});
   sinon.spy(validator, 'validateField');
-  t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
-  t.truthy(validator.validateField.called);
+  expect(validator.validate(['answer'], { answer: 42 })).toEqual({});
+  expect(validator.validateField.called).toBeTruthy();
 });
 
-test('Validator.validate should reset errors', t => {
+it('Validator.validate should reset errors', () => {
   const validator = new Validator({ answer: { required: true } });
   validator.validate(['answer'], { }, {});
   const errors = validator.validate([], { }, {});
-  t.deepEqual(errors, {});
+  expect(errors).toEqual({});
 });
 
-test('Validator.validate should filter out valid values', t => {
+it('Validator.validate should filter out valid values', () => {
   const validator = new Validator({});
   sinon.stub(validator, 'validateField').returns(null);
-  t.deepEqual(validator.validate(['answer'], { answer: 42 }), {});
+  expect(validator.validate(['answer'], { answer: 42 })).toEqual({});
 });
 
-test('Validator.validateField should not run other validator rules when required fails', t => {
+it('Validator.validateField should not run other validator rules when required fails', () => {
   const validator = new Validator({ answer: { length: { min: 2 } } });
-  t.deepEqual(validator.validateField('answer', ''), null);
+  expect(validator.validateField('answer', '')).toEqual(null);
 });
 
-test('Validator.validateField should run other validator rules when required validates', t => {
+it('Validator.validateField should run other validator rules when required validates', () => {
   const validator = new Validator({ answer: { length: { min: 2 } } });
-  t.deepEqual(validator.validateField('answer', '1').rule, 'length.min');
+  expect(validator.validateField('answer', '1').rule).toEqual('length.min');
 });
 
-test('Validator.validate should accept data=undefined', t => {
+it('Validator.validate should accept data=undefined', () => {
   const validator = new Validator({ answer: { required: true } });
-  t.deepEqual(
-    validator.validate(['answer'], undefined),
+  expect(validator.validate(['answer'], undefined)).toEqual(
     { answer: { field: 'answer', rule: 'required', value: undefined, config: { required: true } } }
   );
 });
 
-test('Validator.validate should support nested data structures', t => {
+it('Validator.validate should support nested data structures', () => {
   const validator = new Validator({ 'a.b': { numeric: true } });
-  t.deepEqual(
-    validator.validate(['a.b'], { a: { b: 'd42' } }),
+  expect(validator.validate(['a.b'], { a: { b: 'd42' } })).toEqual(
     { 'a.b': { field: 'a.b', rule: 'numeric', value: 'd42', config: { numeric: true } } }
   );
 });
 
-test('Validator.validateField should return null if field is not in config', t => {
+it('Validator.validateField should return null if field is not in config', () => {
   const validator = new Validator({});
-  t.is(validator.validateField('answer', 42), null);
+  expect(validator.validateField('answer', 42)).toBe(null);
 });
 
-test('Validator.validateField should update errors', t => {
+it('Validator.validateField should update errors', () => {
   const validator = new Validator({ a: { required: true }, b: { required: true } });
   validator.validateField('a', null);
-  t.deepEqual(
-    validator.errors,
-    { a: { field: 'a', rule: 'required', value: null, config: { required: true } } },
+  expect(validator.errors).toEqual(
+    { a: { field: 'a', rule: 'required', value: null, config: { required: true } } }
   );
   validator.validateField('a', 'c');
-  t.deepEqual(validator.errors, {});
+  expect(validator.errors).toEqual({});
 });
 
-test('Validator.validateField should return object with offending rule name', t => {
+it('Validator.validateField should return object with offending rule name', () => {
   const validator = new Validator({ a: { numeric: { integerOnly: true } } });
 
-  t.deepEqual(
-    validator.validateField('a', '2.0'),
-    {
-      field: 'a',
-      rule: 'numeric.integerOnly',
-      value: '2.0',
-      config: { numeric: { integerOnly: true } },
-    }
-  );
+  expect(validator.validateField('a', '2.0')).toEqual({
+    field: 'a',
+    rule: 'numeric.integerOnly',
+    value: '2.0',
+    config: { numeric: { integerOnly: true } },
+  });
 });
 
-test('Validator.validateRule should throw UnknownRuleError when it gets an unkown rule', t => {
-  t.throws(() => {
+it('Validator.validateRule should throw UnknownRuleError when it gets an unkown rule', () => {
+  expect(() => {
     const validator = new Validator({ a: { none: {} } });
     validator.validateRule('none', 'a', '', {});
-  }, UnknownRuleError, 'Cannot find rule \'none\'');
+  }).toThrowError(UnknownRuleError);
 });
 
-test('Validator.validateRule should return null when if return falsy', t => {
+it('Validator.validateRule should return null when if return falsy', () => {
   const validator = new Validator({ a: { numeric: { if: ({ b }) => b === 2 } } });
-  t.is(validator.validateRule('numeric', 'a', 'dd', {}), null);
+  expect(validator.validateRule('numeric', 'a', 'dd', {})).toBe(null);
 });
 
-test('Validator.validateRule should return "numeric" when if of numeric returns true', t => {
+it('Validator.validateRule should return "numeric" when if of numeric returns true', () => {
   const validator = new Validator({ a: { numeric: { if: () => true } } });
-  t.is(validator.validateRule('numeric', 'a', 'dd', {}).rule, 'numeric');
+  expect(validator.validateRule('numeric', 'a', 'dd', {}).rule).toBe('numeric');
 });
 
-test(
+it(
   'Validator.validateRule should return "numeric" when if of numeric returns ' +
   'true based on other field',
-  t => {
+  () => {
     const validator = new Validator({ a: { numeric: { if: ({ b }) => b === 2 } } });
-    t.is(validator.validateRule('numeric', 'a', 'dd', { values: { b: 2 } }).rule, 'numeric');
+    expect(validator.validateRule('numeric', 'a', 'dd', { values: { b: 2 } }).rule).toBe('numeric');
   }
 );
 
-test('Validator.validate should flatten error structure if array is returned', t => {
+it('Validator.validate should flatten error structure if array is returned', () => {
   const validatorConfig = {
     fields: {
       arrayOf: {
@@ -148,10 +142,10 @@ test('Validator.validate should flatten error structure if array is returned', t
     },
   };
 
-  t.deepEqual(expectedOutput, validationOutput);
+  expect(expectedOutput).toEqual(validationOutput);
 });
 
-test('Validator.validate should support nesting of rules that return arrays of errors', t => {
+it('Validator.validate should support nesting of rules that return arrays of errors', () => {
   const validatorConfig = {
     fields: {
       arrayOf: {
@@ -184,6 +178,5 @@ test('Validator.validate should support nesting of rules that return arrays of e
     },
   };
 
-  t.deepEqual(expectedOutput, validationOutput);
+  expect(expectedOutput).toEqual(validationOutput);
 });
-

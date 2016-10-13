@@ -1,8 +1,7 @@
-import test from 'ava';
-
+/* eslint-env jest */
 import Validator from '../validator';
 
-test('Validator.validateMultiple should validate multiple data sets', t => {
+it('Validator.validateMultiple should validate multiple data sets', () => {
   const config = { a: { required: true, numeric: { min: 200 } } };
   const validator = new Validator(config);
   const data = {
@@ -22,5 +21,5 @@ test('Validator.validateMultiple should validate multiple data sets', t => {
 
   const result = validator.validateMultiple(['a'], data);
 
-  t.deepEqual(result, expected);
+  expect(result).toEqual(expected);
 });

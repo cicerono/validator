@@ -1,10 +1,8 @@
-import test from 'ava';
-
+/* eslint-env jest */
 import arrayOf from '../arrayOf';
 
-test('rules.arrayOf should return array of validation errors', t => {
-  t.deepEqual(
-    arrayOf('elements', [{}], { name: { required: true } }),
+it('rules.arrayOf should return array of validation errors', () => {
+  expect(arrayOf('elements', [{}], { name: { required: true } })).toEqual(
     [{ name: { rule: 'required', value: undefined, field: 'name', config: { required: true } } }]
   );
 });

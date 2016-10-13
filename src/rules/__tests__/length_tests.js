@@ -1,24 +1,23 @@
-import test from 'ava';
-
+/* eslint-env jest */
 import length from '../length';
 
-test('rules.length should return null accepted values', t => {
-  t.is(length('field', '0', { min: 1, max: 1 }), null);
-  t.is(length('field', '0', { exact: 1 }), null);
+it('rules.length should return null accepted values', () => {
+  expect(length('field', '0', { min: 1, max: 1 })).toBe(null);
+  expect(length('field', '0', { exact: 1 })).toBe(null);
 });
 
-test('rules.length should return "length.min" when value is to short', t => {
-  t.is(length('field', '00', { min: 3 }), 'length.min');
+it('rules.length should return "length.min" when value is to short', () => {
+  expect(length('field', '00', { min: 3 })).toBe('length.min');
 });
 
-test('rules.length should return "length.max" when value is to long', t => {
-  t.is(length('field', '00', { max: 1 }), 'length.max');
+it('rules.length should return "length.max" when value is to long', () => {
+  expect(length('field', '00', { max: 1 })).toBe('length.max');
 });
 
-test('rules.length should return "length.exact" when value is longer than exact', t => {
-  t.is(length('field', '00', { exact: 1 }), 'length.exact');
+it('rules.length should return "length.exact" when value is longer than exact', () => {
+  expect(length('field', '00', { exact: 1 })).toBe('length.exact');
 });
 
-test('rules.length should return "length.exact" when value is shorter than exact', t => {
-  t.is(length('field', '00', { exact: 3 }), 'length.exact');
+it('rules.length should return "length.exact" when value is shorter than exact', () => {
+  expect(length('field', '00', { exact: 3 })).toBe('length.exact');
 });
