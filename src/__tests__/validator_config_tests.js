@@ -1,8 +1,7 @@
-import test from 'ava';
-
+/* eslint-env jest */
 import Validator from '../validator';
 
-test('Validator should validate required rules', t => {
+it('Validator should validate required rules', () => {
   const validator = new Validator({
     noValue: { required: true },
     present: { required: true },
@@ -16,22 +15,22 @@ test('Validator should validate required rules', t => {
     notRequired: '',
   });
 
-  t.is(result.hasOwnProperty('notRequired'), false);
-  t.is(result.hasOwnProperty('present'), false);
+  expect(result.hasOwnProperty('notRequired')).toBe(false);
+  expect(result.hasOwnProperty('present')).toBe(false);
 
-  t.deepEqual(result.noValue, {
+  expect(result.noValue).toEqual({
     field: 'noValue',
     rule: 'required',
     value: null,
     config: { required: true },
   });
 
-  t.deepEqual(result.notInObject, {
+  expect(result.notInObject).toEqual({
     field: 'notInObject',
     rule: 'required',
     value: undefined,
     config: { required: true },
   });
 
-  t.deepEqual(result, validator.getErrors());
+  expect(result).toEqual(validator.getErrors());
 });

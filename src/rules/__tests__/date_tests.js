@@ -1,52 +1,52 @@
-import test from 'ava';
+/* eslint-env jest */
 import moment from 'moment';
 
 import date from '../date';
 
-test('rules.date should return null for valid formats', t => {
-  t.is(date('field', '2015-05-05'), null);
-  t.is(date('field', '2016-02-29'), null);
-  t.is(date('field', '2015-05-05T10:00'), null);
+it('rules.date should return null for valid formats', () => {
+  expect(date('field', '2015-05-05')).toBe(null);
+  expect(date('field', '2016-02-29')).toBe(null);
+  expect(date('field', '2015-05-05T10:00')).toBe(null);
 });
 
-test('rules.date should return null for valid formats when format is specified', t => {
-  t.is(date('field', '2015-05-05', { format: 'YYYY-MM-DD' }), null);
-  t.is(date('field', '2015', { format: 'YYYY' }), null);
+it('rules.date should return null for valid formats when format is specified', () => {
+  expect(date('field', '2015-05-05', { format: 'YYYY-MM-DD' })).toBe(null);
+  expect(date('field', '2015', { format: 'YYYY' })).toBe(null);
 });
 
-test('rules.date should return "date.format" for invalid formats', t => {
-  t.is(date('field', '2015-r05-05'), 'date.format');
-  t.is(date('field', '2015-02-29'), 'date.format');
-  t.is(date('field', '2016-02-31'), 'date.format');
+it('rules.date should return "date.format" for invalid formats', () => {
+  expect(date('field', '2015-r05-05')).toBe('date.format');
+  expect(date('field', '2015-02-29')).toBe('date.format');
+  expect(date('field', '2016-02-31')).toBe('date.format');
 });
 
-test('rules.date should return "date.format" for invalid formats when format is specified', t => {
-  t.is(date('field', '2015-05-05T10:00', { format: 'YYYY-MM-DD' }), 'date.format');
+it('rules.date should return "date.format" for invalid formats when format is specified', () => {
+  expect(date('field', '2015-05-05T10:00', { format: 'YYYY-MM-DD' })).toBe('date.format');
 });
 
-test('rules.date should return "date.past" when date is not in past', t => {
+it('rules.date should return "date.past" when date is not in past', () => {
   const inFuture = moment(new Date()).add(1, 'days');
-  t.is(date('field', inFuture, { past: true }), 'date.past');
-  t.is(date('field', moment(), { past: true }), 'date.past');
+  expect(date('field', inFuture, { past: true })).toBe('date.past');
+  expect(date('field', moment(), { past: true })).toBe('date.past');
 });
 
-test('rules.date should return "date.future" when date is not in future', t => {
+it('rules.date should return "date.future" when date is not in future', () => {
   const inPast = moment(new Date()).subtract(1, 'days');
-  t.is(date('field', inPast, { future: true }), 'date.future');
-  t.is(date('field', moment(), { future: true }), 'date.future');
+  expect(date('field', inPast, { future: true })).toBe('date.future');
+  expect(date('field', moment(), { future: true })).toBe('date.future');
 });
 
-test('rules.date should return null when value is equal', t => {
-  t.is(date('field', moment(), { min: moment().format('YYYY-MM-DD') }), null);
-  t.is(date('field', moment(), { max: moment().format('YYYY-MM-DD') }), null);
+it('rules.date should return null when value is equal', () => {
+  expect(date('field', moment(), { min: moment().format('YYYY-MM-DD') })).toBe(null);
+  expect(date('field', moment(), { max: moment().format('YYYY-MM-DD') })).toBe(null);
 });
 
-test('rules.date should return "date.min" when value is lower', t => {
+it('rules.date should return "date.min" when value is lower', () => {
   const inPast = moment().subtract(2, 'days');
-  t.is(date('field', inPast, { min: moment().format('YYYY-MM-DD') }), 'date.min');
+  expect(date('field', inPast, { min: moment().format('YYYY-MM-DD') })).toBe('date.min');
 });
 
-test('rules.date should return "date.max" when value is bigger', t => {
+it('rules.date should return "date.max" when value is bigger', () => {
   const inFuture = moment().add(2, 'days');
-  t.is(date('field', inFuture, { max: moment().format('YYYY-MM-DD') }), 'date.max');
+  expect(date('field', inFuture, { max: moment().format('YYYY-MM-DD') })).toBe('date.max');
 });

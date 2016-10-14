@@ -1,27 +1,27 @@
-import test from 'ava';
+/* eslint-env jest */
 import { constant } from 'lodash';
 
 import extend from '../extend';
 const newRule = constant(null);
 
-test('Validator.extend should extend rules suite', t => {
+it('Validator.extend should extend rules suite', () => {
   const Validator = extend({ newRule });
-  t.truthy(Validator.rules.newRule);
-  t.is(Validator.rules.newRule, newRule);
+  expect(Validator.rules.newRule).toBeTruthy();
+  expect(Validator.rules.newRule).toBe(newRule);
 });
 
-test('Validator.extend should include default rules', t => {
+it('Validator.extend should include default rules', () => {
   const Validator = extend({ newRule });
-  t.truthy(Validator.rules.required);
+  expect(Validator.rules.required).toBeTruthy();
 });
 
-test('Validator.extend should overwrite if the rule has same name', t => {
+it('Validator.extend should overwrite if the rule has same name', () => {
   const Validator = extend({ required: newRule });
-  t.is(Validator.rules.required, newRule);
+  expect(Validator.rules.required).toBe(newRule);
 });
 
-test('Validator.extend should create validator that is able to use the new rules', t => {
+it('Validator.extend should create validator that is able to use the new rules', () => {
   const Validator = extend({ newRule });
   const result = new Validator({ a: { newRule: true } }).validate(['a'], {});
-  t.deepEqual(result, {});
+  expect(result).toEqual({});
 });
