@@ -3,13 +3,13 @@
 ## Install
 
 ```
-npm i --save @relekang/validator
+npm i --save cicero-form-validator
 ```
 
 ## Usage
 
 ```javascript
-var Validator = require('@relekang/validator')
+var Validator = require('cicero-form-validator')
 
 var validator = Validator({
   field: { required: true }
@@ -40,7 +40,7 @@ The example below will make field required if otherField is filled with `"100"`.
 ### Adding new rules
 
 ```javascript
-var validatorCreator = require("@relekang/validator").extend;
+var validatorCreator = require("cicero-form-validator").extend;
 
 var Validator = validatorCreator({
   mod: (field, value, options) => value % options.constant === 0 ? null : 'mod'
