@@ -23,7 +23,7 @@ it('rules.uniqueInArray should return "uniqueInArray" for duplicate objects base
       { productKey: '123', value: 'arbitrary' },
     ],
     { byKey: 'productKey' }
-  )).toBe('uniqueInArray');
+  )).toBe('uniqueInArray.byKey');
 });
 
 it('rules.uniqueInArray should return "null" for unique objects based by key', () => {

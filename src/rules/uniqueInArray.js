@@ -9,12 +9,14 @@ export default function uniqueInArray(field, array, options) {
     return 'uniqueInArray';
   }
 
-  let duplicatesExist = duplicateValuesExist(array);
-
   const byUniqueObjectKey = get(options, 'byKey');
-  if (!isNil(byUniqueObjectKey)) {
-    duplicatesExist = duplicateValuesExist(map(array, byUniqueObjectKey));
+  if (!isNil(byUniqueObjectKey) && duplicateValuesExist(map(array, byUniqueObjectKey))) {
+    return 'uniqueInArray.byKey';
   }
 
-  return duplicatesExist ? 'uniqueInArray' : null;
+  if (duplicateValuesExist(array)) {
+    return 'uniqueInArray';
+  }
+
+  return null;
 }
