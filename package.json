@@ -1,6 +1,6 @@
 {
   "name": "cicero-form-validator",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
@@ -28,7 +28,9 @@
     "changelog.md"
   ],
   "eslintConfig": {
-    "extends": ["airbnb-base"],
+    "extends": [
+      "airbnb-base"
+    ],
     "parser": "babel-eslint",
     "rules": {
       "arrow-body-style": 0,

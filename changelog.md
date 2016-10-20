@@ -1,3 +1,13 @@
+<a name="0.18.0"></a>
+# [0.18.0](https://github.com/cicerono/validator/compare/v0.17.0...v0.18.0) (2016-10-20)
+
+
+### Features
+
+* uniqueInArray validator ([#55](https://github.com/cicerono/validator/issues/55)) ([a3470e4](https://github.com/cicerono/validator/commit/a3470e4))
+
+
+
 <a name="0.17.0"></a>
 # [0.17.0](https://github.com/cicerono/validator/compare/v0.16.0...v0.17.0) (2016-10-12)
 
