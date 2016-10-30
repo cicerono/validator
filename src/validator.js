@@ -97,36 +97,36 @@ export default function extend(rules: RuleSet) {
     return error;
   }
 
-  function validator(config: ValidatorConfig) {
-    function validate(fields: Array<string>, data: Object): ValidatorErrors {
-      return flow(
-        map((field: string) => validateField(config, field, get(data, field), data)),
-        reject(isEmpty),
-        reduce((lastValue, error) => {
-          if (isArray(error)) {
-            let output = { ...lastValue };
-            error.forEach(item => {
-              output = { ...output, [item.field]: item };
-            });
-            return output;
-          }
+  function validate(config: ValidatorConfig, fields: Array<string>, data: Object): ValidatorErrors {
+    return flow(
+      map((field: string) => validateField(config, field, get(data, field), data)),
+      reject(isEmpty),
+      reduce((lastValue, error) => {
+        if (isArray(error)) {
+          let output = { ...lastValue };
+          error.forEach(item => {
+            output = { ...output, [item.field]: item };
+          });
+          return output;
+        }
 
-          return { ...lastValue, [error.field]: error };
-        }, {})
-      )(fields);
-    }
-
-    function validateMultiple(fields: Array<string>, data: Object) {
-      return reduce((lastValue, key) => ({
-        ...lastValue,
-        [key]: validate(fields, data[key]),
-      }), {})(keys(data));
-    }
-
-    validate.multiple = validateMultiple;
-
-    return validate;
+        return { ...lastValue, [error.field]: error };
+      }, {})
+    )(fields);
   }
 
-  return validator;
+  function validator(config: ValidatorConfig) {
+    return (fields: Array<string>, data: Object) => validate(config, fields, data);
+  }
+
+  function multipleValidator(config: ValidatorConfig) {
+    return function validateMultiple(fields: Array<string>, data: Object) {
+      return reduce((lastValue, key) => ({
+        ...lastValue,
+        [key]: validate(config, fields, data[key]),
+      }), {})(keys(data));
+    };
+  }
+
+  return { validator, multipleValidator };
 }

@@ -1,11 +1,11 @@
 // @flow
 /* eslint-env jest */
-import validator from '../index';
+import { multipleValidator } from '../index';
 import type { ValidatorConfig } from '../types';
 
-it('Validator.validateMultiple should validate multiple data sets', () => {
+it('multipleValidator should validate multiple data sets', () => {
   const config: ValidatorConfig = { a: { required: true, numeric: { min: 200 } } };
-  const validate = validator(config);
+  const validate = multipleValidator(config);
   const data = {
     first: { a: 100 },
     second: { a: 2000 },
@@ -21,7 +21,7 @@ it('Validator.validateMultiple should validate multiple data sets', () => {
     },
   };
 
-  const result = validate.multiple(['a'], data);
+  const result = validate(['a'], data);
 
   expect(result).toEqual(expected);
 });
