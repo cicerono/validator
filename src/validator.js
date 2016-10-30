@@ -8,6 +8,7 @@ import {
   isUndefined,
   isEmpty,
   keys,
+  memoize,
 } from 'lodash';
 import { reject, flow, map, reduce } from 'lodash/fp';
 
@@ -116,16 +117,25 @@ export default function extend(rules: RuleSet) {
   }
 
   function validator(config: ValidatorConfig) {
-    return (fields: Array<string>, data: Object) => validate(config, fields, data);
+    function _validate( // eslint-disable-line no-underscore-dangle
+      fields: Array<string>,
+      data: Object
+    ) {
+      return validate(config, fields, data);
+    }
+    _validate.memoized = memoize(_validate);
+    return _validate;
   }
 
   function multipleValidator(config: ValidatorConfig) {
-    return function validateMultiple(fields: Array<string>, data: Object) {
+    function validateMultiple(fields: Array<string>, data: Object) {
       return reduce((lastValue, key) => ({
         ...lastValue,
         [key]: validate(config, fields, data[key]),
       }), {})(keys(data));
-    };
+    }
+    validateMultiple.memoized = memoize(validateMultiple);
+    return validateMultiple;
   }
 
   return { validator, multipleValidator };
