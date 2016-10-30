@@ -1,6 +1,5 @@
 // @flow
 import {
-  assign,
   constant,
   get,
   isArray,
@@ -83,7 +82,10 @@ export default function extend(rules: RuleSet) {
         for (let i = 0; i < fieldRules.length; i++) {
           const ruleName = fieldRules[i];
           const ruleConfig = getRuleConfig(config, field, ruleName);
-          error = validateRule(config, ruleName, field, value, assign({}, ruleConfig, { values }));
+          error = validateRule(config, ruleName, field, value, {
+            ...ruleConfig,
+            values,
+          });
 
           if (error !== null) {
             break;
@@ -102,24 +104,23 @@ export default function extend(rules: RuleSet) {
         reject(isEmpty),
         reduce((lastValue, error) => {
           if (isArray(error)) {
-            let output = assign({}, lastValue);
+            let output = { ...lastValue };
             error.forEach(item => {
-              output = assign({}, output, { [item.field]: item });
+              output = { ...output, [item.field]: item };
             });
             return output;
           }
 
-          return assign({}, lastValue, { [error.field]: error });
+          return { ...lastValue, [error.field]: error };
         }, {})
       )(fields);
     }
 
     function validateMultiple(fields: Array<string>, data: Object) {
-      return reduce((lastValue, key) => assign(
-        {},
-        lastValue,
-        { [key]: validate(fields, data[key]) }
-      ), {})(keys(data));
+      return reduce((lastValue, key) => ({
+        ...lastValue,
+        [key]: validate(fields, data[key]),
+      }), {})(keys(data));
     }
 
     validate.multiple = validateMultiple;
