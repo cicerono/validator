@@ -1,0 +1,10 @@
+exports[`createError() should return error object for array 1`] = `
+Array [
+  Object {
+    "config": Object {},
+    "field": "array[0].key",
+    "rule": "numeric",
+    "value": "NaN",
+  },
+]
+`;

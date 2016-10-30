@@ -15,7 +15,7 @@ var validator = Validator({
   field: { required: true }
 })
 
-validator.validate(['field'], {})
+validator(['field'], {})
 // => { field: { field: 'field', rule: 'required', value: undefined } }
 ```
 
@@ -46,7 +46,7 @@ var Validator = validatorCreator({
   mod: (field, value, options) => value % options.constant === 0 ? null : 'mod'
 });
 
-Validator({ f: { mod: { constant: 2 } }).validate(['f'], { f: 3 })
+validator({ f: { mod: { constant: 2 } })(['f'], { f: 3 })
 // => { f: { field: 'f', rule: 'mod', value: 3 } }
 ```
 

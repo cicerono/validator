@@ -1,77 +1,89 @@
-import freeze from 'deep-freeze';
+// @flow
 import {
   assign,
   constant,
   get,
+  isArray,
   isBoolean,
   isFunction,
   isUndefined,
-  isArray,
+  isEmpty,
   keys,
-  map,
-  flatten,
-  forEach,
-  omit,
-  reduce,
-  reject,
 } from 'lodash';
+import { reject, flow, map, reduce } from 'lodash/fp';
 
-import * as rules from './rules';
+import createError from './utils/createError';
 import { UnknownRuleError } from './errors';
+import type { ValidatorConfig, RuleSet, ValidatorErrors } from './types';
 
-function createError(field, error, value, config) {
-  if (isArray(error)) {
-    return flatten(map(error, (nestedError, i) =>
-      map(keys(nestedError), (key) =>
-        createError(`${field}[${i}].${key}`,
-          nestedError[key].rule, nestedError[key].value, nestedError[key].config)))
-    );
-  }
-  return { field, rule: error, value, config };
+function getRuleConfig(config, field, ruleName) {
+  return get(config[field], ruleName);
 }
 
-export default class Validator {
-  constructor(config) {
-    if (!config) { throw new Error('Missing validator configuration'); }
-    this.config = freeze(config);
-    this.errors = {};
+function evaluateIf(config, field, ruleName, options = {}) {
+  const ruleConfig = getRuleConfig(config, field, ruleName);
+
+  if (isUndefined(ruleConfig)) {
+    return false;
   }
 
-  getErrors() {
-    return freeze(this.errors);
+  let condition = get(ruleConfig, 'if');
+  if (isBoolean(ruleConfig)) {
+    condition = constant(ruleConfig);
   }
 
-  validate(fields, data) {
-    this.errors = {};
-    map(fields, field => this.validateField(field, get(data, field), data));
-    return freeze(this.errors);
+  if (isFunction(condition)) {
+    return !!condition(get(options, 'values', {}));
   }
 
-  validateMultiple(fields, data) {
-    return reduce(keys(data), (lastValue, key) => assign(
-      {},
-      lastValue,
-      { [key]: this.validate(fields, data[key]) }
-    ), {});
+  return true;
+}
+
+export default function extend(rules: RuleSet) {
+  function lookupRule(ruleName) {
+    if (!rules.hasOwnProperty(ruleName)) {
+      throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
+    }
+
+    return rules[ruleName];
   }
 
-  validateField(field, value, values = {}) {
+  function hasRulesForField(config, field) {
+    return config.hasOwnProperty(field);
+  }
+
+  function validateRule(config, ruleName, field, value, options) {
+    if (!options.force && !evaluateIf(config, field, ruleName, options)) {
+      return null;
+    }
+
+    const rule = lookupRule(ruleName);
+    const error = rule(field, value, options);
+
+    if (error) {
+      return createError(field, error, value, config[field]);
+    }
+
+    return error;
+  }
+
+  function validateField(config, field, value, values = {}) {
     let error = null;
-    if (this.hasRulesForField(field)) {
-      error = this.validateRule('required', field, value, { values, force: true });
+    if (hasRulesForField(config, field)) {
+      error = validateRule(config, 'required', field, value, { values, force: true });
 
       const fieldIsFilled = !error;
 
-      if (error !== null && !this.evaluateIf(field, 'required', { values })) {
+      if (error !== null && !evaluateIf(config, field, 'required', { values })) {
         error = null;
       }
 
       if (fieldIsFilled) {
-        const fieldRules = reject(keys(this.config[field]), 'required');
+        const fieldRules = reject('required')(keys(config[field]));
         for (let i = 0; i < fieldRules.length; i++) {
           const ruleName = fieldRules[i];
-          const ruleConfig = this.getRuleConfig(field, ruleName);
-          error = this.validateRule(ruleName, field, value, assign({}, ruleConfig, { values }));
+          const ruleConfig = getRuleConfig(config, field, ruleName);
+          error = validateRule(config, ruleName, field, value, assign({}, ruleConfig, { values }));
 
           if (error !== null) {
             break;
@@ -80,71 +92,40 @@ export default class Validator {
       }
     }
 
-    if (error) {
-      if (isArray(error)) {
-        forEach(error, (nestedError) => {
-          this.errors = assign({}, this.errors, { [nestedError.field]: nestedError });
-        });
-      } else {
-        this.errors = assign({}, this.errors, { [error.field]: error });
-      }
-    } else {
-      this.removeError(field);
-    }
-
     return error;
   }
 
-  validateRule(ruleName, field, value, options) {
-    if (!options.force && !this.evaluateIf(field, ruleName, options)) {
-      return null;
+  function validator(config: ValidatorConfig) {
+    function validate(fields: Array<string>, data: Object): ValidatorErrors {
+      return flow(
+        map((field: string) => validateField(config, field, get(data, field), data)),
+        reject(isEmpty),
+        reduce((lastValue, error) => {
+          if (isArray(error)) {
+            let output = assign({}, lastValue);
+            error.forEach(item => {
+              output = assign({}, output, { [item.field]: item });
+            });
+            return output;
+          }
+
+          return assign({}, lastValue, { [error.field]: error });
+        }, {})
+      )(fields);
     }
 
-    if (!Validator.rules.hasOwnProperty(ruleName)) {
-      throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
+    function validateMultiple(fields: Array<string>, data: Object) {
+      return reduce((lastValue, key) => assign(
+        {},
+        lastValue,
+        { [key]: validate(fields, data[key]) }
+      ), {})(keys(data));
     }
 
-    const error = Validator.rules[ruleName](field, value, options);
+    validate.multiple = validateMultiple;
 
-    if (error) {
-      return createError(field, error, value, this.config[field]);
-    }
-
-    return error;
+    return validate;
   }
 
-  evaluateIf(field, ruleName, options = {}) {
-    const ruleConfig = this.getRuleConfig(field, ruleName);
-
-    if (isUndefined(ruleConfig)) {
-      return false;
-    }
-
-    let condition = get(ruleConfig, 'if');
-    if (isBoolean(ruleConfig)) {
-      condition = constant(ruleConfig);
-    }
-
-    if (isFunction(condition)) {
-      return !!condition(get(options, 'values', {}));
-    }
-
-    return true;
-  }
-
-  hasRulesForField(field) {
-    return this.config.hasOwnProperty(field);
-  }
-
-  getRuleConfig(field, ruleName) {
-    return get(this.config[field], ruleName);
-  }
-
-  removeError(field) {
-    if (this.errors.hasOwnProperty(field)) {
-      this.errors = omit(this.errors, field);
-    }
-  }
+  return validator;
 }
-
-Validator.rules = rules;

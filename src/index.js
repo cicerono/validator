@@ -1,7 +1,16 @@
-module.exports.__esModule = true; // eslint-disable-line no-underscore-dangle
+// @flow
+/* eslint-disable no-var */
+import { assign } from 'lodash';
 
-module.exports.default = require('./validator').default;
-module.exports.Validator = require('./validator').default;
+import _extend from './validator';
+import * as _rules from './rules';
+import type { Validator, RuleSet } from './types';
 
-module.exports.extend = require('./extend').default;
-module.exports.rules = require('./rules');
+export const rules: RuleSet = _rules;
+
+export function extend(rulestToAdd?: RuleSet): Validator {
+  return _extend(assign({}, rules, rulestToAdd));
+}
+
+export const validator: Validator = extend();
+export default validator;

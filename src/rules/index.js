@@ -1,3 +1,4 @@
+// @flow
 export { default as ageByDate } from './ageByDate';
 export { default as arrayOf } from './arrayOf';
 export { default as date } from './date';
