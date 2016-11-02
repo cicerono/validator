@@ -1,6 +1,6 @@
 {
   "name": "cicero-form-validator",
-  "version": "0.18.0",
+  "version": "1.0.0-rc.1",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {

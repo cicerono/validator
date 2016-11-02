@@ -1,3 +1,22 @@
+<a name="1.0.0-rc.1"></a>
+# [1.0.0-rc.1](https://github.com/cicerono/validator/compare/v0.18.0...v1.0.0-rc.1) (2016-11-02)
+
+
+### Features
+
+* Add memoized version of validators ([d4b9dd1](https://github.com/cicerono/validator/commit/d4b9dd1))
+* Export multipleValidator ([8d81089](https://github.com/cicerono/validator/commit/8d81089))
+* Make validator stateless ([eb45e7e](https://github.com/cicerono/validator/commit/eb45e7e))
+
+
+### BREAKING CHANGES
+
+* This rewrites the validator away from the class based to a functional
+one relying on currying. The exported validator function will return a
+validate function.
+
+
+
 <a name="0.18.0"></a>
 # [0.18.0](https://github.com/cicerono/validator/compare/v0.17.0...v0.18.0) (2016-10-20)
 
