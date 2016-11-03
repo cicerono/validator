@@ -38,16 +38,16 @@ export default function numeric(field, value, options) {
   }
 
   if (!isIntegerOnly) {
-    const minDecimalPlaces = get(options, 'minDecimalPlaces');
-    const maxDecimalPlaces = get(options, 'maxDecimalPlaces');
+    const minDecimalPlaces = get(options, 'decimalPlaces.min');
+    const maxDecimalPlaces = get(options, 'decimalPlaces.max');
     const decimalPlaces = getNumberOfDecimalPlaces(number);
 
     if (minDecimalPlaces && minDecimalPlaces > decimalPlaces) {
-      return 'numeric.minDecimalPlaces';
+      return 'numeric.decimalPlaces.min';
     }
 
     if (maxDecimalPlaces && maxDecimalPlaces < decimalPlaces) {
-      return 'numeric.maxDecimalPlaces';
+      return 'numeric.decimalPlaces.max';
     }
   }
 
