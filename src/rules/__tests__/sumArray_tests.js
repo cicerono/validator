@@ -36,6 +36,7 @@ it('rules.sumArray should return null for unapplicable data type', () => {
   expect(sumArray('field', 123, { exact: 100 })).toBe('sumArray');
   // $FlowInvalidInputTest
   expect(sumArray('field', {}, { exact: 100 })).toBe('sumArray');
+  expect(sumArray('field', [0, 'a', 2], { exact: 100 })).toBe('sumArray');
 });
 
 it('rules.sumArray should return null for valid exact', () => {
