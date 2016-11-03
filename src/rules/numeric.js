@@ -15,6 +15,14 @@ function evaluateMax(value, max) {
   return !isFloat(value.toString(), { max: parseFloat(max) });
 }
 
+function getNumberOfDecimalPlaces(number) {
+  const index = number.toString().indexOf('.');
+  if (index >= 0) {
+    return number.toString().substring(index + 1).length;
+  }
+  return 0;
+}
+
 export default function numeric(field, value, options) {
   const delimiter = get(options, 'delimiter');
   const number = delimiter ? value.replace(delimiter, '.') : value;
@@ -23,9 +31,26 @@ export default function numeric(field, value, options) {
     return 'numeric';
   }
 
-  if (get(options, 'integerOnly') && !isInt(number.toString())) {
+  const isIntegerOnly = get(options, 'integerOnly', false);
+
+  if (isIntegerOnly && !isInt(number.toString())) {
     return 'numeric.integerOnly';
   }
+
+  if (!isIntegerOnly) {
+    const minDecimalPlaces = get(options, 'minDecimalPlaces');
+    const maxDecimalPlaces = get(options, 'maxDecimalPlaces');
+    const decimalPlaces = getNumberOfDecimalPlaces(number);
+
+    if (minDecimalPlaces && minDecimalPlaces > decimalPlaces) {
+      return 'numeric.minDecimalPlaces';
+    }
+
+    if (maxDecimalPlaces && maxDecimalPlaces < decimalPlaces) {
+      return 'numeric.maxDecimalPlaces';
+    }
+  }
+
 
   const min = get(options, 'min');
   if (isObject(min)) {
