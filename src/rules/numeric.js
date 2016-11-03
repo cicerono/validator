@@ -25,13 +25,28 @@ export default function numeric(
 ): ?string {
   const delimiter = get(options, 'delimiter');
   const number = delimiter ? String(value).replace(delimiter, '.') : value;
+  const integerOnly = get(options, 'integerOnly');
 
   if (!isFloat(number.toString())) {
     return 'numeric';
   }
 
-  if (get(options, 'integerOnly') && !isInt(number.toString())) {
+  if (integerOnly && !isInt(number.toString())) {
     return 'numeric.integerOnly';
+  }
+
+  if (!integerOnly) {
+    const minDecimalPlaces = get(options, 'decimalPlaces.min');
+    const maxDecimalPlaces = get(options, 'decimalPlaces.max');
+    const decimalPlaces = getNumberOfDecimalPlaces(number);
+
+    if (minDecimalPlaces && minDecimalPlaces > decimalPlaces) {
+      return 'numeric.decimalPlaces.min';
+    }
+
+    if (maxDecimalPlaces && maxDecimalPlaces < decimalPlaces) {
+      return 'numeric.decimalPlaces.max';
+    }
   }
 
   const min = get(options, 'min');
