@@ -88,3 +88,22 @@ it('numeric should validate min value when set by other field', () => {
   expect(numeric('field', '2', { min: { field: 'a' }, values: { a: 1 } })).toBe(null);
   expect(numeric('field', 2, { min: { field: 'a' }, values: { a: 3 } })).toBe('numeric.min.field');
 });
+
+it('should validate minimal decimal points', () => {
+  expect(numeric('field', 12.12, { integerOnly: false, decimalPlaces: { min: 1 } })).toBe(null);
+  expect(numeric('field', 12.12, { integerOnly: false, decimalPlaces: { min: 2 } })).toBe(null);
+  expect(numeric('field', 12.12, { integerOnly: false, decimalPlaces: { min: 3 } }))
+    .toBe('numeric.decimalPlaces.min');
+  expect(numeric('field', 12, { integerOnly: false, decimalPlaces: { min: 1 } }))
+    .toBe('numeric.decimalPlaces.min');
+  expect(numeric('field', 12, { integerOnly: false, decimalPlaces: { min: 0 } })).toBe(null);
+});
+
+it('should validate maximal decimal points', () => {
+  expect(numeric('field', 12.12, { integerOnly: false, decimalPlaces: { max: 3 } })).toBe(null);
+  expect(numeric('field', 12.12, { integerOnly: false, decimalPlaces: { max: 2 } })).toBe(null);
+  expect(numeric('field', 12.12, { integerOnly: false, decimalPlaces: { max: 1 } }))
+    .toBe('numeric.decimalPlaces.max');
+  expect(numeric('field', 12, { integerOnly: false, decimalPlaces: { max: 1 } })).toBe(null);
+  expect(numeric('field', 12, { integerOnly: false, decimalPlaces: { max: 0 } })).toBe(null);
+});

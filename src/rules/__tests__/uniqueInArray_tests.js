@@ -1,6 +1,14 @@
 /* eslint-env jest */
 import uniqueInArray from '../uniqueInArray';
 
+it('rules.uniqueInArray should return "uniqueInArray" for non-array input', () => {
+  expect(uniqueInArray('field', 123)).toBe('uniqueInArray');
+  expect(uniqueInArray('field', '123')).toBe('uniqueInArray');
+  expect(uniqueInArray('field', {})).toBe('uniqueInArray');
+  expect(uniqueInArray('field', undefined)).toBe('uniqueInArray');
+  expect(uniqueInArray('field', null)).toBe('uniqueInArray');
+});
+
 it('rules.uniqueInArray should return "uniqueInArray" for duplicate primitive values', () => {
   expect(uniqueInArray('field', [1, 0, 1])).toBe('uniqueInArray');
   expect(uniqueInArray('field', [1, 0, 1, 0, 1])).toBe('uniqueInArray');
