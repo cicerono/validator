@@ -1,3 +1,13 @@
+<a name="0.19.0"></a>
+# [0.19.0](https://github.com/cicerono/validator/compare/v0.18.0...v0.19.0) (2016-11-07)
+
+
+### Features
+
+* validate decimal places ([82eb48b](https://github.com/cicerono/validator/commit/82eb48b))
+
+
+
 <a name="0.18.0"></a>
 # [0.18.0](https://github.com/cicerono/validator/compare/v0.17.0...v0.18.0) (2016-10-20)
 
