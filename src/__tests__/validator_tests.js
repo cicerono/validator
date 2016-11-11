@@ -142,7 +142,7 @@ it('Validator.validate should flatten error structure if array is returned', () 
     },
   };
 
-  expect(expectedOutput).toEqual(validationOutput);
+  expect(validationOutput).toEqual(expectedOutput);
 });
 
 it('Validator.validate should support nesting of rules that return arrays of errors', () => {
@@ -178,5 +178,49 @@ it('Validator.validate should support nesting of rules that return arrays of err
     },
   };
 
-  expect(expectedOutput).toEqual(validationOutput);
+  expect(validationOutput).toEqual(expectedOutput);
+});
+
+it('Validator.validate should not block execution of other rules if it passes', () => {
+  const validatorConfig = {
+    fields: {
+      arrayOf: {
+        name: { length: { max: 3 } },
+      },
+      sumArray: {
+        field: 'percentage',
+        exact: 100,
+      },
+    },
+  };
+
+  const validationOutput = new Validator(validatorConfig)
+    .validate(['fields'], { fields: [
+      { name: 'ABC', percentage: 20 },
+      { name: 'DEF', percentage: 20 },
+      { name: 'GHI', percentage: 20 },
+    ] });
+
+  const expectedOutput = {
+    fields: {
+      field: 'fields',
+      rule: 'sumArray.exact',
+      value: [
+        { name: 'ABC', percentage: 20 },
+        { name: 'DEF', percentage: 20 },
+        { name: 'GHI', percentage: 20 },
+      ],
+      config: {
+        sumArray: {
+          field: 'percentage',
+          exact: 100,
+        },
+        arrayOf: {
+          name: { length: { max: 3 } },
+        },
+      },
+    },
+  };
+
+  expect(validationOutput).toEqual(expectedOutput);
 });
