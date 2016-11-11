@@ -1,3 +1,13 @@
+<a name="0.19.1"></a>
+## [0.19.1](https://github.com/cicerono/validator/compare/v0.19.0...v0.19.1) (2016-11-11)
+
+
+### Bug Fixes
+
+* ArrayOf validation should return null if the validation succeeds ([#59](https://github.com/cicerono/validator/issues/59)) ([aa53714](https://github.com/cicerono/validator/commit/aa53714)), closes [#57](https://github.com/cicerono/validator/issues/57)
+
+
+
 <a name="0.19.0"></a>
 # [0.19.0](https://github.com/cicerono/validator/compare/v0.18.0...v0.19.0) (2016-11-07)
 
