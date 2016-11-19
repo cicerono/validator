@@ -5,7 +5,10 @@
   "main": "./lib/index.js",
   "scripts": {
     "version": "conventional-changelog -p angular -si changelog.md && git add changelog.md",
-    "prepublish": "babel src --out-dir lib --ignore test",
+    "prepublish": "npm run build",
+    "build": "npm run build:js && npm run build:flow",
+    "build:js": "babel src --out-dir lib --ignore test",
+    "build:flow": "flow-copy-source src lib && rm -rf lib/**/__tests__",
     "test": "jest --coverage",
     "lint": "eslint .",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
@@ -58,6 +61,7 @@
     "eslint-config-airbnb-base": "^4.0.0",
     "eslint-plugin-ava": "^2.5.0",
     "eslint-plugin-import": "^1.10.2",
+    "flow-copy-source": "^1.1.0",
     "jest": "^16.0.1",
     "jest-cli": "^16.0.1",
     "nyc": "^6.4.4",
