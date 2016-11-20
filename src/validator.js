@@ -1,11 +1,7 @@
 // @flow
 import {
-  constant,
   get,
   isArray,
-  isBoolean,
-  isFunction,
-  isUndefined,
   isEmpty,
   keys,
   memoize,
@@ -13,31 +9,11 @@ import {
 import { reject, flow, map, reduce } from 'lodash/fp';
 
 import createError from './utils/createError';
+import evaluateIf from './utils/evaluateIf';
+import getRuleConfig from './utils/getRuleConfig';
+import hasRulesForField from './utils/hasRulesForField';
 import { UnknownRuleError } from './errors';
 import type { ValidatorConfig, RuleSet, ValidatorErrors } from './types';
-
-function getRuleConfig(config, field, ruleName) {
-  return get(config[field], ruleName);
-}
-
-function evaluateIf(config, field, ruleName, options = {}) {
-  const ruleConfig = getRuleConfig(config, field, ruleName);
-
-  if (isUndefined(ruleConfig)) {
-    return false;
-  }
-
-  let condition = get(ruleConfig, 'if');
-  if (isBoolean(ruleConfig)) {
-    condition = constant(ruleConfig);
-  }
-
-  if (isFunction(condition)) {
-    return !!condition(get(options, 'values', {}));
-  }
-
-  return true;
-}
 
 export default function extend(rules: RuleSet) {
   function lookupRule(ruleName) {
@@ -46,10 +22,6 @@ export default function extend(rules: RuleSet) {
     }
 
     return rules[ruleName];
-  }
-
-  function hasRulesForField(config, field) {
-    return config.hasOwnProperty(field);
   }
 
   function validateRule(config, ruleName, field, value, options) {

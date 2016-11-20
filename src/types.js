@@ -9,7 +9,9 @@ export type ValidatorError = {|
 
 export type ValidatorErrors = { [field: string]: ValidatorError }
 
-export type IfCheck = (fields: {[key: string]: mixed}) => boolean
+export type IfCheck =
+  | boolean
+  | (fields: {[key: string]: mixed}) => boolean
 
 export type RuleConfig = boolean | {
   if?: IfCheck,

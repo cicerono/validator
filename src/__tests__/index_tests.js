@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 /* eslint-disable global-require */
 import * as rules from '../rules';
