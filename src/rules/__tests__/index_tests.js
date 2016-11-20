@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 import { keys, map, reject } from 'lodash/fp';
 import fs from 'fs';

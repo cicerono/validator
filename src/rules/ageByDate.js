@@ -1,7 +1,10 @@
+// @flow
 import { get, isNil } from 'lodash';
 import moment from 'moment';
 
-export default function ageByDate(field, value, options) {
+import type { RuleOptions } from '../types';
+
+export default function ageByDate(field: string, value: mixed, options?: RuleOptions): ?string {
   let min = get(options, 'min');
   let max = get(options, 'max');
 

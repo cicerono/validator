@@ -1,10 +1,17 @@
+// @flow
 import { isEmpty, isArray, isNil, get, map, filter, includes } from 'lodash';
 
-const duplicateValuesExist = (array) => {
-  return !isEmpty(filter(array, (value, index, item) => includes(item, value, index + 1)));
-};
+import type { RuleOptions } from '../types';
 
-export default function uniqueInArray(field, array, options) {
+function duplicateValuesExist(array): boolean {
+  return !isEmpty(filter(array, (value, index, item) => includes(item, value, index + 1)));
+}
+
+export default function uniqueInArray(
+  field: string,
+  array: Array<mixed>,
+  options?: RuleOptions
+): ?string {
   if (!isArray(array)) {
     return 'uniqueInArray';
   }

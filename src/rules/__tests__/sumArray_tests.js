@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 import sumArray from '../sumArray';
 
@@ -29,8 +30,11 @@ it('rules.sumArray should return "sumArray.max" for invalid max', () => {
 });
 
 it('rules.sumArray should return null for unapplicable data type', () => {
+  // $FlowInvalidInputTest
   expect(sumArray('field', 'value', { exact: 100 })).toBe('sumArray');
+  // $FlowInvalidInputTest
   expect(sumArray('field', 123, { exact: 100 })).toBe('sumArray');
+  // $FlowInvalidInputTest
   expect(sumArray('field', {}, { exact: 100 })).toBe('sumArray');
 });
 

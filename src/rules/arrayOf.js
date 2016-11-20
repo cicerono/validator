@@ -7,7 +7,7 @@ export default function arrayOf(
   field: string,
   value: Array<any>,
   options: FieldConfig
-): Array<ValidatorErrors> {
+): ?Array<ValidatorErrors> {
   const ruleOptions = omit('values')(options);
   const validate = validator(ruleOptions);
   const fields = keys(ruleOptions);

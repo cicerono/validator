@@ -1,5 +1,8 @@
+// @flow
 import { get, isNil, isObject } from 'lodash';
 import { isInt, isFloat } from 'validator';
+
+import type { RuleOptions } from '../types';
 
 function evaluateMin(value, min) {
   if (isNil(min) || min === '') {
@@ -15,9 +18,13 @@ function evaluateMax(value, max) {
   return !isFloat(value.toString(), { max: parseFloat(max) });
 }
 
-export default function numeric(field, value, options) {
+export default function numeric(
+  field: string,
+  value: string | number,
+  options?: RuleOptions
+): ?string {
   const delimiter = get(options, 'delimiter');
-  const number = delimiter ? value.replace(delimiter, '.') : value;
+  const number = delimiter ? String(value).replace(delimiter, '.') : value;
 
   if (!isFloat(number.toString())) {
     return 'numeric';

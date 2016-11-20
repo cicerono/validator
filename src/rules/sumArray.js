@@ -1,6 +1,8 @@
-
+// @flow
 import { get, isArray, isNil, isObject, reduce } from 'lodash';
 import { isFloat } from 'validator';
+
+import type { RuleOptions } from '../types';
 
 function evaluateMin(value, min) {
   if (isNil(min) || min === '') {
@@ -16,7 +18,11 @@ function evaluateMax(value, max) {
   return !isFloat(value.toString(), { max: parseFloat(max) });
 }
 
-export default function sumArray(field, value, options) {
+export default function sumArray(
+  field: string,
+  value: Array<mixed>,
+  options: RuleOptions
+): ?string {
   if (!isArray(value)) {
     return 'sumArray';
   }

@@ -1,7 +1,10 @@
+// @flow
 import { get } from 'lodash';
 import moment from 'moment';
 
-export default function date(field, value, options) {
+import type { RuleOptions } from '../types';
+
+export default function date(field: string, value: mixed, options?: RuleOptions): ?string {
   const format = get(options, 'format', moment.ISO_8601);
   if (!moment(value, format, true).isValid()) {
     return 'date.format';

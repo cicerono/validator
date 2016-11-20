@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 import uniqueInArray from '../uniqueInArray';
 
@@ -38,4 +39,3 @@ it('rules.uniqueInArray should return "null" for unique objects based by key', (
     { byKey: 'productKey' }
   )).toBe(null);
 });
-

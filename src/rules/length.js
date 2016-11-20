@@ -1,6 +1,13 @@
+// @flow
 import { get, isNil } from 'lodash';
 
-export default function length(field, value, options) {
+import type { RuleOptions } from '../types';
+
+export default function length(
+  field: string,
+  value: string | Array<*>,
+  options?: RuleOptions
+): ?string {
   const min = get(options, 'min');
   const max = get(options, 'max');
 

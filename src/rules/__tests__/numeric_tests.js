@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 import numeric from '../numeric';
 
