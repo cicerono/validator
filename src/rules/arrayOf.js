@@ -1,12 +1,12 @@
 // @flow
 import { keys, map, omit } from 'lodash/fp';
-import validator from '../index';
-import type { ValidatorErrors, FieldConfig } from '../types';
+import type { ValidatorErrors, Validator, FieldConfig } from '../types';
 
 export default function arrayOf(
   field: string,
   value: Array<any>,
-  options: FieldConfig
+  options: FieldConfig,
+  validator: Validator,
 ): ?Array<ValidatorErrors> {
   const ruleOptions = omit('values')(options);
   const validate = validator(ruleOptions);

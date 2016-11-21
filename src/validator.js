@@ -30,7 +30,7 @@ export default function extend(rules: RuleSet) {
     }
 
     const rule = lookupRule(ruleName);
-    const error = rule(field, value, options);
+    const error = rule(field, value, options, validator);
 
     if (error) {
       return createError(field, error, value, config[field]);
