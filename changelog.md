@@ -1,3 +1,13 @@
+<a name="1.0.0-rc.3"></a>
+# [1.0.0-rc.3](https://github.com/cicerono/validator/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2016-11-21)
+
+
+### Bug Fixes
+
+* Add missing function getNumberOfDecimalPlaces after cherry-pick ([ccc9ea3](https://github.com/cicerono/validator/commit/ccc9ea3))
+
+
+
 <a name="1.0.0-rc.2"></a>
 # [1.0.0-rc.2](https://github.com/cicerono/validator/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2016-11-21)
 
