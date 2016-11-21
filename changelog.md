@@ -1,3 +1,19 @@
+<a name="1.0.0-rc.2"></a>
+# [1.0.0-rc.2](https://github.com/cicerono/validator/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2016-11-21)
+
+
+### Bug Fixes
+
+* Assign config as a property to validator functions ([37a266e](https://github.com/cicerono/validator/commit/37a266e))
+* Make arrayOf use extended validator ([5425e25](https://github.com/cicerono/validator/commit/5425e25))
+
+
+### Features
+
+* Add bundling of flowtypes ([9ed5bf6](https://github.com/cicerono/validator/commit/9ed5bf6))
+
+
+
 <a name="1.0.0-rc.1"></a>
 # [1.0.0-rc.1](https://github.com/cicerono/validator/compare/v0.18.0...v1.0.0-rc.1) (2016-11-02)
 
