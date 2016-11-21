@@ -18,6 +18,14 @@ function evaluateMax(value, max) {
   return !isFloat(value.toString(), { max: parseFloat(max) });
 }
 
+function getNumberOfDecimalPlaces(number) {
+  const index = number.toString().indexOf('.');
+  if (index >= 0) {
+    return number.toString().substring(index + 1).length;
+  }
+  return 0;
+}
+
 export default function numeric(
   field: string,
   value: string | number,
