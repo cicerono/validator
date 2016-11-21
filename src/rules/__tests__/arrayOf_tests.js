@@ -1,10 +1,11 @@
 // @flow
 /* eslint-env jest */
 import arrayOf from '../arrayOf';
+import { validator } from '../../';
 
 describe('rules.arrayOf', () => {
   it('should return array of validation errors', () => {
-    expect(arrayOf('elements', [{}], { name: { required: true } })).toEqual(
+    expect(arrayOf('elements', [{}], { name: { required: true } }, validator)).toEqual(
       [{ name: { rule: 'required', value: undefined, field: 'name', config: { required: true } } }]
     );
   });
@@ -20,7 +21,8 @@ describe('rules.arrayOf', () => {
     const output = arrayOf(
       'fields',
       [{ name: 'Test 1', nestedValues: [{ key: 'NaN', value: 'Value' }] }],
-      options
+      options,
+      validator
     );
 
     const expectedOutput = [{
