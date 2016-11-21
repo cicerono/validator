@@ -96,6 +96,7 @@ export default function extend(rules: RuleSet) {
       return validate(config, fields, data);
     }
     _validate.memoized = memoize(_validate);
+    _validate.config = config;
     return _validate;
   }
 
@@ -107,6 +108,7 @@ export default function extend(rules: RuleSet) {
       }), {})(keys(data));
     }
     validateMultiple.memoized = memoize(validateMultiple);
+    validateMultiple.config = config;
     return validateMultiple;
   }
 
