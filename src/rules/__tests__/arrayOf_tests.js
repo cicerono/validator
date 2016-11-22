@@ -36,4 +36,8 @@ describe('rules.arrayOf', () => {
 
     expect(output).toEqual(expectedOutput);
   });
+
+  it('should return null if everything is valid', () => {
+    expect(arrayOf('elements', [{}], { name: { numeric: { max: 2 } } }, validator)).toBe(null);
+  });
 });

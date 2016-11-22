@@ -1,5 +1,5 @@
 // @flow
-import { keys, map, omit } from 'lodash/fp';
+import { isEmpty, flow, keys, map, omit, reject } from 'lodash/fp';
 import type { ValidatorErrors, Validator, FieldConfig } from '../types';
 
 export default function arrayOf(
@@ -11,5 +11,7 @@ export default function arrayOf(
   const ruleOptions = omit('values')(options);
   const validate = validator(ruleOptions);
   const fields = keys(ruleOptions);
-  return map(item => validate(fields, item))(value);
+  const errors = map(item => validate(fields, item))(value);
+
+  return flow(reject(isEmpty), isEmpty)(errors) ? null : errors;
 }
