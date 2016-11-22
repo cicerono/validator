@@ -1,3 +1,13 @@
+<a name="1.0.0-rc.4"></a>
+# [1.0.0-rc.4](https://github.com/cicerono/validator/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2016-11-22)
+
+
+### Bug Fixes
+
+* Make arrayOf return null when there are no errors ([031a27d](https://github.com/cicerono/validator/commit/031a27d))
+
+
+
 <a name="1.0.0-rc.3"></a>
 # [1.0.0-rc.3](https://github.com/cicerono/validator/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2016-11-21)
 
