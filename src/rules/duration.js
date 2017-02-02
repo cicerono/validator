@@ -4,7 +4,7 @@ import { get, isObject } from 'lodash';
 import { evaluateMin, evaluateMax } from '../utils/numbers';
 import type { RuleOptions } from '../types';
 
-const calculateMonths = (years, months) => (years * 12) + months;
+const calculateMonths = (years: number, months: number) => (years * 12) + months;
 
 export default function duration(
   field: string,
