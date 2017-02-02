@@ -1,7 +1,7 @@
 // @flow
 import { get, isArray, isNil, isObject, reduce } from 'lodash';
 import { isFloat } from 'validator';
-import { evaluateMin, evaluateMax } from './../utils/helpers';
+import { evaluateMin, evaluateMax } from '../utils/numbers';
 
 import type { RuleOptions } from '../types';
 

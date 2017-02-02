@@ -2,8 +2,8 @@
 import { get, isObject } from 'lodash';
 import { isInt, isFloat } from 'validator';
 
+import { evaluateMin, evaluateMax } from '../utils/numbers';
 import type { RuleOptions } from '../types';
-import { evaluateMin, evaluateMax } from './../utils/helpers';
 
 function getNumberOfDecimalPlaces(number) {
   const index = number.toString().indexOf('.');
