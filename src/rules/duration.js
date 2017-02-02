@@ -1,9 +1,16 @@
+// @flow
 import { get, isObject } from 'lodash';
+
 import { evaluateMin, evaluateMax } from '../utils/numbers';
+import type { RuleOptions } from '../types';
 
 const calculateMonths = (years, months) => (years * 12) + months;
 
-export default function duration(field, value, options) {
+export default function duration(
+  field: string,
+  value: string | number,
+  options?: RuleOptions
+): ?string {
   const valueInMonths = calculateMonths(
     parseInt(get(value, 'years', 0), 10),
     parseInt(get(value, 'months', 0), 10)

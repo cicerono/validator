@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 import { evaluateMin, evaluateMax } from '../numbers';
 
