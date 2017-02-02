@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import { evaluateMin, evaluateMax } from '../helpers';
+import { evaluateMin, evaluateMax } from '../numbers';
 
 it('helpers.evaluateMin should validate min limit', () => {
   expect(evaluateMin(10, 5)).toBe(false);

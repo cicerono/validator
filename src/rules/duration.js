@@ -1,5 +1,5 @@
 import { get, isObject } from 'lodash';
-import { evaluateMin, evaluateMax } from './../utils/helpers';
+import { evaluateMin, evaluateMax } from '../utils/numbers';
 
 const calculateMonths = (years, months) => (years * 12) + months;
 
