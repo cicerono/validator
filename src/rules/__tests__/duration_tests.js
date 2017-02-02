@@ -1,3 +1,4 @@
+// @flow
 /* eslint-env jest */
 import duration from '../duration';
 
