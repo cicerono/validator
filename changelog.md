@@ -1,3 +1,15 @@
+<a name="1.0.0-rc.5"></a>
+# [1.0.0-rc.5](https://github.com/cicerono/validator/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2017-02-03)
+
+
+### Features
+
+* add flow annotation ([85735e2](https://github.com/cicerono/validator/commit/85735e2))
+* add flow checking ([b92d427](https://github.com/cicerono/validator/commit/b92d427))
+* create rule for duration ([97461b0](https://github.com/cicerono/validator/commit/97461b0))
+
+
+
 <a name="1.0.0-rc.4"></a>
 # [1.0.0-rc.4](https://github.com/cicerono/validator/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2016-11-22)
 
