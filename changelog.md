@@ -1,3 +1,13 @@
+<a name="1.0.0-rc.6"></a>
+# [1.0.0-rc.6](https://github.com/cicerono/validator/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2017-02-03)
+
+
+### Features
+
+* extend duration rule ([384d5a4](https://github.com/cicerono/validator/commit/384d5a4))
+
+
+
 <a name="1.0.0-rc.5"></a>
 # [1.0.0-rc.5](https://github.com/cicerono/validator/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2017-02-03)
 
