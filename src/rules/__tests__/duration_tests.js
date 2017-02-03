@@ -25,20 +25,51 @@ it('duration should validate min value from a field', () => {
   expect(duration('field', {}, { min: { field: 'a' }, values: {} })).toBe(null);
   expect(duration('field', {}, { min: { field: 'a' }, values: { a: null } })).toBe(null);
   expect(duration('field', {}, { min: { field: 'a' }, values: { a: '' } })).toBe(null);
+  expect(duration('field', {}, { min: { field: 'a' }, values: { a: { } } })).toBe(null);
 
-  expect(duration('field', { years: 10 }, { min: { field: 'a' }, values: { a: 120 } }))
+  expect(duration('field', { years: 10 }, { min: { field: 'a' }, values: { a: { years: 10 } } }))
     .toBe(null);
-  expect(duration('field', { months: 10 }, { min: { field: 'a' }, values: { a: 10 } }))
+  expect(duration(
+      'field',
+      { years: 10 },
+      { min: { field: 'a' }, values: { a: { years: 10, months: 0 } } }
+    )).toBe(null);
+  expect(duration('field', { months: 10 }, { min: { field: 'a' }, values: { a: { months: 10 } } }))
     .toBe(null);
-  expect(duration('field', { years: 10, months: 10 }, { min: { field: 'a' }, values: { a: 120 } }))
+  expect(duration(
+      'field',
+      { months: 10 },
+      { min: { field: 'a' }, values: { a: { years: 0, months: 10 } } }
+    )).toBe(null);
+  expect(duration(
+      'field',
+      { years: 10, months: 10 },
+      { min: { field: 'a' }, values: { a: { years: 10, months: 10 } } }
+    )).toBe(null);
+  expect(duration(
+      'field',
+      { years: 10, months: 10 },
+      { min: { field: 'a' }, values: { a: { years: '10', months: '10' } } }
+    )).toBe(null);
+  expect(duration('field', { years: 10 }, { min: { field: '' }, values: { } }))
+    .toBe(null);
+  expect(duration('field', { years: 10 }, { min: { field: undefined }, values: { } }))
+    .toBe(null);
+  expect(duration('field', { years: 10 }, { min: { field: null }, values: { } }))
     .toBe(null);
 
-  expect(duration('field', { years: 10 }, { min: { field: 'a' }, values: { a: 121 } }))
+  expect(duration(
+      'field',
+      { years: 10 },
+      { min: { field: 'a' }, values: { a: { years: 10, months: 11 } } }
+    )).toBe('duration.min.field');
+  expect(duration('field', { months: 10 }, { min: { field: 'a' }, values: { a: { months: 11 } } }))
     .toBe('duration.min.field');
-  expect(duration('field', { months: 10 }, { min: { field: 'a' }, values: { a: 11 } }))
-    .toBe('duration.min.field');
-  expect(duration('field', { years: 10, months: 10 }, { min: { field: 'a' }, values: { a: 131 } }))
-    .toBe('duration.min.field');
+  expect(duration(
+      'field',
+      { years: 10, months: 10 },
+      { min: { field: 'a' }, values: { a: { years: 10, months: 11 } } }
+    )).toBe('duration.min.field');
 });
 
 it('duration should validate max value', () => {
@@ -57,18 +88,55 @@ it('duration should validate max value from a field', () => {
   expect(duration('field', {}, { max: { field: 'a' }, values: {} })).toBe(null);
   expect(duration('field', {}, { max: { field: 'a' }, values: { a: null } })).toBe(null);
   expect(duration('field', {}, { max: { field: 'a' }, values: { a: '' } })).toBe(null);
+  expect(duration('field', {}, { max: { field: 'a' }, values: { a: { } } })).toBe(null);
 
-  expect(duration('field', { years: 10 }, { max: { field: 'a' }, values: { a: 120 } }))
+  expect(duration('field', { years: 10 }, { max: { field: 'a' }, values: { a: { years: 10 } } }))
     .toBe(null);
-  expect(duration('field', { months: 10 }, { max: { field: 'a' }, values: { a: 10 } }))
+  expect(duration(
+      'field',
+      { years: 10 },
+      { max: { field: 'a' }, values: { a: { years: 10, months: 0 } } }
+    )).toBe(null);
+  expect(duration(
+      'field',
+      { months: 10 },
+      { max: { field: 'a' }, values: { a: { months: 10 } } }
+    )).toBe(null);
+  expect(duration(
+      'field',
+      { months: 10 },
+      { max: { field: 'a' }, values: { a: { years: 0, months: 10 } } }
+    )).toBe(null);
+  expect(duration(
+      'field',
+      { years: 10, months: 10 },
+      { max: { field: 'a' }, values: { a: { years: 10, months: 10 } } }
+    )).toBe(null);
+  expect(duration(
+      'field',
+      { years: 10, months: 10 },
+      { max: { field: 'a' }, values: { a: { years: '10', months: '10' } } }
+    )).toBe(null);
+  expect(duration('field', { years: 10 }, { max: { field: '' }, values: { } }))
     .toBe(null);
-  expect(duration('field', { years: 10, months: 10 }, { max: { field: 'a' }, values: { a: 130 } }))
+  expect(duration('field', { years: 10 }, { max: { field: undefined }, values: { } }))
+    .toBe(null);
+  expect(duration('field', { years: 10 }, { max: { field: null }, values: { } }))
     .toBe(null);
 
-  expect(duration('field', { years: 10 }, { max: { field: 'a' }, values: { a: 119 } }))
-    .toBe('duration.max.field');
-  expect(duration('field', { months: 10 }, { max: { field: 'a' }, values: { a: 9 } }))
-    .toBe('duration.max.field');
-  expect(duration('field', { years: 10, months: 10 }, { max: { field: 'a' }, values: { a: 129 } }))
-    .toBe('duration.max.field');
+  expect(duration(
+      'field',
+      { years: 10 },
+      { max: { field: 'a' }, values: { a: { years: 9, months: 11 } } }
+    )).toBe('duration.max.field');
+  expect(duration(
+      'field',
+      { months: 10 },
+      { max: { field: 'a' }, values: { a: { years: 0, months: 9 } } }
+    )).toBe('duration.max.field');
+  expect(duration(
+      'field',
+      { years: 10, months: 10 },
+      { max: { field: 'a' }, values: { a: { years: 10, months: 9 } } }
+    )).toBe('duration.max.field');
 });
