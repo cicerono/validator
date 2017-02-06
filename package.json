@@ -47,7 +47,7 @@
     }
   },
   "devDependencies": {
-    "ava": "^0.15.0",
+    "nyc": "^7.1.0",
     "babel": "^6.5.2",
     "babel-cli": "^6.9.0",
     "babel-eslint": "^6.1.0",
