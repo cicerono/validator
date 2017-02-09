@@ -1,3 +1,8 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/cicerono/validator/compare/v1.0.0-rc.6...v1.0.0) (2017-02-09)
+
+
+
 <a name="1.0.0-rc.6"></a>
 # [1.0.0-rc.6](https://github.com/cicerono/validator/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2017-02-03)
 
