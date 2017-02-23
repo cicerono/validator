@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`createError() should return error object for array 1`] = `
 Array [
   Object {
