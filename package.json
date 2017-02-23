@@ -11,6 +11,7 @@
     "build:flow": "flow-copy-source src lib && rm -rf lib/**/__tests__",
     "test": "jest --coverage",
     "lint": "eslint .",
+    "flow": "flow check",
     "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
