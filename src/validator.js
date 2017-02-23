@@ -30,6 +30,7 @@ export default function extend(rules: RuleSet) {
     }
 
     const rule = lookupRule(ruleName);
+    // eslint-disable-next-line no-use-before-define
     const error = rule(field, value, options, validator);
 
     if (error) {
