@@ -1,3 +1,13 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/cicerono/validator/compare/v1.0.0...v1.0.1) (2017-02-23)
+
+
+### Bug Fixes
+
+* Firefox regex issue ([5870892](https://github.com/cicerono/validator/commit/5870892))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/cicerono/validator/compare/v1.0.0-rc.6...v1.0.0) (2017-02-09)
 
