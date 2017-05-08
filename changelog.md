@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/cicerono/validator/compare/v1.0.2...v1.1.0) (2017-05-08)
+
+
+### Features
+
+* **date:** Add support for related min/max fields ([e59815b](https://github.com/cicerono/validator/commit/e59815b))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/cicerono/validator/compare/v1.0.1...v1.0.2) (2017-04-18)
 
