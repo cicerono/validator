@@ -51,3 +51,23 @@ it('rules.date should return "date.max" when value is bigger', () => {
   const inFuture = moment().add(2, 'days');
   expect(date('field', inFuture, { max: moment().format('YYYY-MM-DD') })).toBe('date.max');
 });
+
+it('rules.date should return "date.min.field" when value is lower than other field', () => {
+  const inPast = moment().subtract(2, 'days');
+  const options = {
+    min: { field: 'otherField' },
+    values: { otherField: moment().format('YYYY-MM-DD') },
+  };
+
+  expect(date('field', inPast, options)).toBe('date.min.field');
+});
+
+it('rules.date should return "date.max.field" when value is bigger than other field', () => {
+  const inFuture = moment().add(2, 'days');
+  const options = {
+    max: { field: 'otherField' },
+    values: { otherField: moment().format('YYYY-MM-DD') },
+  };
+
+  expect(date('field', inFuture, options)).toBe('date.max.field');
+});
