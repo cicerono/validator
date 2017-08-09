@@ -1,8 +1,8 @@
 #!/usr/bin/env bash -xe
 
-npm install
-npm test
-npm run lint
+yarn
+yarn test
+yarn lint
 
 echo "Releasing $1 version"
 
