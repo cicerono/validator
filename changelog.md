@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/cicerono/validator/compare/v1.1.0...v1.1.1) (2017-08-09)
+
+
+### Bug Fixes
+
+* Remove unecessary dependencies ([ba32486](https://github.com/cicerono/validator/commit/ba32486))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/cicerono/validator/compare/v1.0.2...v1.1.0) (2017-05-08)
 
