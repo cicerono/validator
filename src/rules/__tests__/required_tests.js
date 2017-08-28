@@ -39,3 +39,7 @@ it('rules.required should return null for boolean values', () => {
   expect(required('field', true)).toBe(null);
   expect(required('field', false)).toBe(null);
 });
+
+it('rules.required should return "required" for false when acceptFalse=false', () => {
+  expect(required('field', false, { acceptFalse: false })).toBe('required');
+});
