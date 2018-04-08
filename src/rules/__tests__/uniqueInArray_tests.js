@@ -3,8 +3,11 @@
 import uniqueInArray from "../uniqueInArray";
 
 it('rules.uniqueInArray should return "uniqueInArray" for non-array input', () => {
+  // $FlowInvalidInputTest
   expect(uniqueInArray("field", 123)).toBe("uniqueInArray");
+  // $FlowInvalidInputTest
   expect(uniqueInArray("field", "123")).toBe("uniqueInArray");
+  // $FlowInvalidInputTest
   expect(uniqueInArray("field", {})).toBe("uniqueInArray");
   expect(uniqueInArray("field", undefined)).toBe("uniqueInArray");
   expect(uniqueInArray("field", null)).toBe("uniqueInArray");

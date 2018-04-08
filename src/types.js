@@ -83,6 +83,7 @@ export type ValidatorRule = (
   field: string,
   value: any,
   options: RuleOptions,
+  validator: Validator,
 ) => ?string | Array<ValidatorErrors>;
 
 export type ValidateFunction = (fields: Array<string>, data: Object) => ValidatorErrors;

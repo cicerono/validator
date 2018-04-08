@@ -8,7 +8,7 @@ const calculateMonths = (years: number = 0, months: number = 0) => years * 12 + 
 
 export default function duration(
   field: string,
-  value: string | number,
+  value: ?string | ?number | ?Object,
   options?: RuleOptions,
 ): ?string {
   const valueInMonths = calculateMonths(

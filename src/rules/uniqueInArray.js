@@ -9,7 +9,7 @@ function duplicateValuesExist(array): boolean {
 
 export default function uniqueInArray(
   field: string,
-  array: Array<mixed>,
+  array: ?Array<mixed>,
   options?: RuleOptions,
 ): ?string {
   if (!isArray(array)) {
