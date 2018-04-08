@@ -4,13 +4,12 @@
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
-    "version": "conventional-changelog -p angular -si changelog.md && git add changelog.md",
     "prepublish": "npm run build",
     "build": "babel src --out-dir lib --ignore test",
     "test": "jest --coverage",
     "lint": "eslint .",
     "flow": "flow check",
-    "semantic-release": "false && semantic-release pre && npm publish && semantic-release post"
+    "release": "standard-version -i changelog.md"
   },
   "repository": {
     "type": "git",
@@ -57,6 +56,7 @@
     "jest": "^22.4.3",
     "jest-cli": "^22.4.3",
     "prettier": "^1.11.1",
-    "sinon": "^1.17.4"
+    "sinon": "^1.17.4",
+    "standard-version": "^4.3.0"
   }
 }
