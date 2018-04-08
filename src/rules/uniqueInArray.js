@@ -1,10 +1,17 @@
 // @flow
-import {isEmpty, isArray, isNil, get, map, filter, includes} from "lodash";
+import {isArray, isNil, get, map} from "lodash/fp";
 
 import type {RuleOptions} from "../types";
 
-function duplicateValuesExist(array): boolean {
-  return !isEmpty(filter(array, (value, index, item) => includes(item, value, index + 1)));
+function duplicateValuesExist<T>(array: Array<T>): boolean {
+  const seen: {[key: T]: boolean} = {};
+  for (let i = 0; i < array.length; i += 1) {
+    if (seen[array[i]]) {
+      return true;
+    }
+    seen[array[i]] = true;
+  }
+  return false;
 }
 
 export default function uniqueInArray(
@@ -16,12 +23,13 @@ export default function uniqueInArray(
     return "uniqueInArray";
   }
 
-  const byUniqueObjectKey = get(options, "byKey");
-  if (!isNil(byUniqueObjectKey) && duplicateValuesExist(map(array, byUniqueObjectKey))) {
-    return "uniqueInArray.byKey";
-  }
-
-  if (duplicateValuesExist(array)) {
+  const byUniqueObjectKey: ?string = get("byKey")(options);
+  if (!isNil(byUniqueObjectKey)) {
+    if (duplicateValuesExist(map(byUniqueObjectKey)(array))) {
+      return "uniqueInArray.byKey";
+    }
+    // $FlowFixMe
+  } else if (duplicateValuesExist(array)) {
     return "uniqueInArray";
   }
 
