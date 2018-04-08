@@ -35,7 +35,7 @@
     "babel-preset-env": "^1.6.1",
     "es6-error": "^4.1.1",
     "lodash": "^4.17.5",
-    "moment": "^2.13.0",
+    "moment": "^2.22.0",
     "validator": "^9.4.1"
   },
   "devDependencies": {
