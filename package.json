@@ -32,7 +32,6 @@
     "changelog.md"
   ],
   "dependencies": {
-    "babel-preset-env": "^1.6.1",
     "es6-error": "^4.1.1",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
@@ -45,6 +44,7 @@
     "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "bluebird": "^3.4.1",
     "conventional-changelog-cli": "^1.2.0",
     "eslint": "^4.19.1",
