@@ -1,19 +1,14 @@
 // @flow
-import {
-  get,
-  isBoolean,
-  isFunction,
-  isUndefined,
-} from 'lodash/fp';
+import {get, isBoolean, isFunction, isUndefined} from "lodash/fp";
 
-import getRuleConfig from './getRuleConfig';
-import type { ValidatorConfig } from '../types';
+import getRuleConfig from "./getRuleConfig";
+import type {ValidatorConfig} from "../types";
 
 export default function evaluateIf(
   config: ValidatorConfig,
   field: string,
   ruleName: string,
-  options: Object = {}
+  options: Object = {},
 ) {
   const ruleConfig = getRuleConfig(config, field, ruleName);
 
@@ -21,7 +16,7 @@ export default function evaluateIf(
     return false;
   }
 
-  const condition = get('if')(ruleConfig);
+  const condition = get("if")(ruleConfig);
 
   if (isBoolean(ruleConfig)) {
     return ruleConfig;
@@ -32,7 +27,7 @@ export default function evaluateIf(
   }
 
   if (isFunction(condition)) {
-    return !!condition(get('values')(options) || {});
+    return !!condition(get("values")(options) || {});
   }
 
   return true;

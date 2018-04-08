@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "cicero",
+    "cicero/prettier",
+    "cicero/lodash-fp",
+    "cicero/flowtype"
+  ],
+  "parser": "babel-eslint",
+  "rules": {
+    "flowtype/no-weak-types": 0
+  }
+}

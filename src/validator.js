@@ -1,23 +1,18 @@
 // @flow
-import {
-  get,
-  isArray,
-  isEmpty,
-  keys,
-  memoize,
-} from 'lodash';
-import { reject, flow, map, reduce } from 'lodash/fp';
+// eslint-disable-next-line lodash-fp/use-fp
+import {get, isArray, isEmpty, keys, memoize} from "lodash";
+import {reject, flow, map, reduce} from "lodash/fp";
 
-import createError from './utils/createError';
-import evaluateIf from './utils/evaluateIf';
-import getRuleConfig from './utils/getRuleConfig';
-import hasRulesForField from './utils/hasRulesForField';
-import { UnknownRuleError } from './errors';
-import type { ValidatorConfig, RuleSet, ValidatorErrors } from './types';
+import createError from "./utils/createError";
+import evaluateIf from "./utils/evaluateIf";
+import getRuleConfig from "./utils/getRuleConfig";
+import hasRulesForField from "./utils/hasRulesForField";
+import {UnknownRuleError} from "./errors";
+import type {ValidatorConfig, RuleSet, ValidatorErrors} from "./types";
 
 export default function extend(rules: RuleSet) {
   function lookupRule(ruleName) {
-    if (!rules.hasOwnProperty(ruleName)) {
+    if (!{}.hasOwnProperty.call(rules, ruleName)) {
       throw new UnknownRuleError(`Cannot find rule '${ruleName}'`);
     }
 
@@ -43,17 +38,17 @@ export default function extend(rules: RuleSet) {
   function validateField(config, field, value, values = {}) {
     let error = null;
     if (hasRulesForField(config, field)) {
-      error = validateRule(config, 'required', field, value, { values, force: true });
+      error = validateRule(config, "required", field, value, {values, force: true});
 
       const fieldIsFilled = !error;
 
-      if (error !== null && !evaluateIf(config, field, 'required', { values })) {
+      if (error !== null && !evaluateIf(config, field, "required", {values})) {
         error = null;
       }
 
       if (fieldIsFilled) {
-        const fieldRules = reject('required')(keys(config[field]));
-        for (let i = 0; i < fieldRules.length; i++) {
+        const fieldRules = reject("required")(keys(config[field]));
+        for (let i = 0; i < fieldRules.length; i += 1) {
           const ruleName = fieldRules[i];
           const ruleConfig = getRuleConfig(config, field, ruleName);
           error = validateRule(config, ruleName, field, value, {
@@ -77,23 +72,21 @@ export default function extend(rules: RuleSet) {
       reject(isEmpty),
       reduce((lastValue, error) => {
         if (isArray(error)) {
-          let output = { ...lastValue };
+          let output = {...lastValue};
           error.forEach(item => {
-            output = { ...output, [item.field]: item };
+            output = {...output, [item.field]: item};
           });
           return output;
         }
 
-        return { ...lastValue, [error.field]: error };
-      }, {})
+        return {...lastValue, [error.field]: error};
+      }, {}),
     )(fields);
   }
 
   function validator(config: ValidatorConfig) {
-    function _validate( // eslint-disable-line no-underscore-dangle
-      fields: Array<string>,
-      data: Object
-    ) {
+    // eslint-disable-next-line no-underscore-dangle
+    function _validate(fields: Array<string>, data: Object) {
       return validate(config, fields, data);
     }
     _validate.memoized = memoize(_validate);
@@ -103,15 +96,18 @@ export default function extend(rules: RuleSet) {
 
   function multipleValidator(config: ValidatorConfig) {
     function validateMultiple(fields: Array<string>, data: Object) {
-      return reduce((lastValue, key) => ({
-        ...lastValue,
-        [key]: validate(config, fields, data[key]),
-      }), {})(keys(data));
+      return reduce(
+        (lastValue, key) => ({
+          ...lastValue,
+          [key]: validate(config, fields, data[key]),
+        }),
+        {},
+      )(keys(data));
     }
     validateMultiple.memoized = memoize(validateMultiple);
     validateMultiple.config = config;
     return validateMultiple;
   }
 
-  return { validator, multipleValidator };
+  return {validator, multipleValidator};
 }

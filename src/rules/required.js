@@ -1,10 +1,10 @@
 // @flow
-import { isArray, isEmpty, isNumber, isBoolean, get } from 'lodash';
+import {isArray, isEmpty, isNumber, isBoolean, get} from "lodash";
 
-import type { RuleOptions } from '../types';
+import type {RuleOptions} from "../types";
 
 export default function required(field: string, value: mixed, options: RuleOptions): ?string {
-  const acceptFalse = get(options, 'acceptFalse', true);
+  const acceptFalse = get(options, "acceptFalse", true);
   let result = false;
 
   if (isArray(value)) {
@@ -17,5 +17,5 @@ export default function required(field: string, value: mixed, options: RuleOptio
     result = !!value;
   }
 
-  return result ? null : 'required';
+  return result ? null : "required";
 }
