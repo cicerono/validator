@@ -6,9 +6,7 @@
   "scripts": {
     "version": "conventional-changelog -p angular -si changelog.md && git add changelog.md",
     "prepublish": "npm run build",
-    "build": "npm run build:js && npm run build:flow",
-    "build:js": "babel src --out-dir lib --ignore test",
-    "build:flow": "flow-copy-source src lib && rm -rf lib/**/__tests__",
+    "build": "babel src --out-dir lib --ignore test",
     "test": "jest --coverage",
     "lint": "eslint .",
     "flow": "flow check",
