@@ -1,6 +1,5 @@
 // @flow
-// eslint-disable-next-line lodash-fp/use-fp
-import {get, isObject} from "lodash";
+import {get, isObject} from "lodash/fp";
 import {isInt, isFloat} from "validator";
 
 import {evaluateMin, evaluateMax} from "../utils/numbers";
@@ -19,9 +18,9 @@ export default function numeric(
   value: string | number,
   options?: RuleOptions,
 ): ?string {
-  const delimiter = get(options, "delimiter");
+  const delimiter = get("delimiter")(options);
   const number = delimiter ? String(value).replace(delimiter, ".") : value;
-  const integerOnly = get(options, "integerOnly");
+  const integerOnly = get("integerOnly")(options);
 
   if (!isFloat(number.toString())) {
     return "numeric";
@@ -32,8 +31,8 @@ export default function numeric(
   }
 
   if (!integerOnly) {
-    const minDecimalPlaces = get(options, "decimalPlaces.min");
-    const maxDecimalPlaces = get(options, "decimalPlaces.max");
+    const minDecimalPlaces = get("decimalPlaces.min")(options);
+    const maxDecimalPlaces = get("decimalPlaces.max")(options);
     const decimalPlaces = getNumberOfDecimalPlaces(number);
 
     if (minDecimalPlaces && minDecimalPlaces > decimalPlaces) {
@@ -45,18 +44,18 @@ export default function numeric(
     }
   }
 
-  const min = get(options, "min");
+  const min = get("min")(options);
   if (isObject(min)) {
-    if (min.field && evaluateMin(number, get(options, `values.${min.field}`))) {
+    if (min.field && evaluateMin(number, get(`values.${min.field}`)(options))) {
       return "numeric.min.field";
     }
   } else if (evaluateMin(number, min)) {
     return "numeric.min";
   }
 
-  const max = get(options, "max");
+  const max = get("max")(options);
   if (isObject(max)) {
-    if (max.field && evaluateMax(number, get(options, `values.${max.field}`))) {
+    if (max.field && evaluateMax(number, get(`values.${max.field}`)(options))) {
       return "numeric.max.field";
     }
   } else if (evaluateMax(number, max)) {

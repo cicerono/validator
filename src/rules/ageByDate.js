@@ -1,17 +1,16 @@
 // @flow
-// eslint-disable-next-line lodash-fp/use-fp
-import {get, isNil} from "lodash";
+import {get, isNil} from "lodash/fp";
 import moment from "moment";
 
 import type {RuleOptions} from "../types";
 
 export default function ageByDate(field: string, value: mixed, options?: RuleOptions): ?string {
-  let min = get(options, "min");
-  let max = get(options, "max");
+  let min = get("min")(options);
+  let max = get("max")(options);
 
-  if (get(options, "exact")) {
-    min = get(options, "exact");
-    max = get(options, "exact");
+  if (get("exact")(options)) {
+    min = get("exact")(options);
+    max = get("exact")(options);
   }
 
   if (!isNil(min) && Math.abs(moment(value).diff(moment(), "years")) < min) {

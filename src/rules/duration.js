@@ -1,5 +1,5 @@
 // @flow
-import {get, isObject} from "lodash";
+import {get, isObject} from "lodash/fp";
 
 import {evaluateMin, evaluateMax} from "../utils/numbers";
 import type {RuleOptions} from "../types";
@@ -12,20 +12,20 @@ export default function duration(
   options?: RuleOptions,
 ): ?string {
   const valueInMonths = calculateMonths(
-    parseInt(get(value, "years", 0), 10),
-    parseInt(get(value, "months", 0), 10),
+    parseInt(get("years")(value), 10) || 0,
+    parseInt(get("months")(value), 10) || 0,
   );
 
-  const min = get(options, "min");
+  const min = get("min")(options);
   if (isObject(min)) {
     if (min.field) {
-      const refField = get(options, `values.${min.field}`, {});
+      const refField = get(`values.${min.field}`)(options) || {};
       if (
         evaluateMin(
           valueInMonths,
           calculateMonths(
-            parseInt(get(refField, "years", 0), 10),
-            parseInt(get(refField, "months", 0), 10),
+            parseInt(get("years")(refField), 10) || 0,
+            parseInt(get("months")(refField), 10) || 0,
           ),
         )
       ) {
@@ -36,16 +36,16 @@ export default function duration(
     return "duration.min";
   }
 
-  const max = get(options, "max");
+  const max = get("max")(options);
   if (isObject(max)) {
     if (max.field) {
-      const refField = get(options, `values.${max.field}`, {});
+      const refField = get(`values.${max.field}`)(options) || {};
       if (
         evaluateMax(
           valueInMonths,
           calculateMonths(
-            parseInt(get(refField, "years", 99999), 10),
-            parseInt(get(refField, "months", 99999), 10),
+            parseInt(get("years")(refField), 10) || 0,
+            parseInt(get("months")(refField), 10) || 0,
           ),
         )
       ) {

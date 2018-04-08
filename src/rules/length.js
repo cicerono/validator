@@ -1,6 +1,5 @@
 // @flow
-// eslint-disable-next-line lodash-fp/use-fp
-import {get, isNil} from "lodash";
+import {get, isNil} from "lodash/fp";
 
 import type {RuleOptions} from "../types";
 
@@ -9,10 +8,10 @@ export default function length(
   value: string | Array<*>,
   options?: RuleOptions,
 ): ?string {
-  const min = get(options, "min");
-  const max = get(options, "max");
+  const min = get("min")(options);
+  const max = get("max")(options);
 
-  const exact = get(options, "exact");
+  const exact = get("exact")(options);
   if (!isNil(exact) && value.length !== exact) {
     return "length.exact";
   }

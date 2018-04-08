@@ -1,4 +1,5 @@
 // @flow
+/* eslint-disable lodash-fp/use-fp, lodash-fp/prefer-flat-map */
 import {flatten, isArray, keys, map} from "lodash";
 
 export default function createError(

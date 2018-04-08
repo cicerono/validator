@@ -1,7 +1,5 @@
 // @flow
-// eslint-disable-next-line lodash-fp/use-fp
-import {get, isArray, isEmpty, keys, memoize} from "lodash";
-import {reject, flow, map, reduce} from "lodash/fp";
+import {reject, flow, map, reduce, get, isArray, isEmpty, keys, memoize} from "lodash/fp";
 
 import createError from "./utils/createError";
 import evaluateIf from "./utils/evaluateIf";
@@ -68,7 +66,7 @@ export default function extend(rules: RuleSet) {
 
   function validate(config: ValidatorConfig, fields: Array<string>, data: Object): ValidatorErrors {
     return flow(
-      map((field: string) => validateField(config, field, get(data, field), data)),
+      map((field: string) => validateField(config, field, get(field)(data), data)),
       reject(isEmpty),
       reduce((lastValue, error) => {
         if (isArray(error)) {
