@@ -1,0 +1,66 @@
+version: 2
+
+jobs:
+  lint:
+    docker:
+      - image: circleci/node:8
+
+    steps:
+      - checkout
+      - restore_cache:
+         keys:
+           - v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: install
+          command: yarn
+      - save_cache:
+         key: v1-{{ checksum "yarn.lock" }}
+         paths:
+           - node_modules/
+      - run: yarn lint
+
+  flow:
+    docker:
+      - image: circleci/node:8
+
+    steps:
+      - checkout
+      - restore_cache:
+         keys:
+           - v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: install
+          command: yarn
+      - save_cache:
+         key: v1-{{ checksum "yarn.lock" }}
+         paths:
+           - node_modules/
+      - run: yarn flow
+
+  tests:
+    docker:
+      - image: circleci/node:8
+
+    steps:
+      - checkout
+      - restore_cache:
+         keys:
+           - v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: install
+          command: yarn
+      - save_cache:
+         key: v1-{{ checksum "yarn.lock" }}
+         paths:
+           - node_modules/
+      - run: yarn test
+
+
+workflows:
+  version: 2
+
+  build:
+    jobs:
+      - lint
+      - flow
+      - tests
